@@ -1,6 +1,78 @@
-node_modules/
-.env
-.env.* 
-.DS_Store
-npm-debug.log
+# Logs
+logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Diagnostic reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directories
+coverage
+*.lcov
+.nyc_output
+
+# Build / intermediate directories
+lib-cov
+build/Release
+dist
+.next
+out
+.nuxt
+.cache
+.parcel-cache
+.public # only if using Gatsby/Next.js, else comment
+
+# Dependency directories
+node_modules/
+bower_components/
+jspm_packages/
+web_modules/
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional caches
+.npm
+.eslintcache
+.stylelintcache
+.node_repl_history
+*.tgz
+.yarn-integrity
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Framework / tool specific
+.grunt
+.vscode-test
+.svelte-kit/
+.vuepress/dist
+**/.vitepress/dist
+**/.vitepress/cache
+.docusaurus
+.serverless/
+.fusebox/
+.dynamodb/
+.firebase/
+.tern-port
+
+# Misc
+.DS_Store
