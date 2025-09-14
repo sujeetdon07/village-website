@@ -1,0 +1,52 @@
+<%- include('partials/header') %>
+
+<section class="card">
+  <h2 style="text-align: center">Login</h2>
+
+  <!-- Alert container -->
+<div id="loginAlert" class="alert">
+  <% if (success && success.length > 0) { %>
+    <div class="alert-message success">
+      <%= success[0] %>
+    </div>
+  <% } %>
+
+  <% if (error && error.length > 0) { %>
+    <div class="alert-message error">
+      <%= error[0] %>
+    </div>
+  <% } %>
+</div>
+
+  <form id="loginForm" class="form" method="POST" action="/api/login">
+    <label>Mobile</label>
+    <input id="loginMobile" name="mobile" type="text" required />
+
+    <label>Password</label>
+    <div class="password-wrapper">
+      <input id="loginPassword" name="password" type="password" required />
+      <button type="button" class="toggle-password">👁️</button>
+    </div>
+
+    <div class="form-row">
+      <button type="submit" class="btn">Login</button>
+      <a href="/register" class="btn outline">Register</a>
+    </div>
+
+    <p style="text-align: center; margin-top: 12px">
+      <a href="/forgot-password" class="btn outline">Forgot Password?</a>
+    </p>
+  </form>
+</section>
+
+<script src="/js/login.js"></script>
+
+<script>
+  setTimeout(() => {
+    const alertDiv = document.getElementById("loginAlert");
+    if(alertDiv) alertDiv.style.display = "none";
+  }, 5000);
+</script>
+
+
+<%- include('partials/footer') %>

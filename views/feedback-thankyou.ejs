@@ -1,0 +1,14 @@
+<%- include('partials/header') %>
+
+<section class="thankyou-box">
+  <h2>🎉 Thank you, <%= name %>!</h2>
+  <p>🙏 Your feedback has been received and will help us improve 💡</p>
+
+  <% if (date && time) { %>
+    <p>📅 Submitted on <%= date %> at <%= time %></p>
+  <% } else { %>
+    <p>📅 Submitted just now</p>
+  <% } %>
+</section>
+
+<%- include('partials/footer') %>

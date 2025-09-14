@@ -1,0 +1,643 @@
+/* ===============================
+   🎨 COLOR VARIABLES
+================================= */
+:root {
+  --a1: #667eea; 
+  --a2: #764ba2; 
+  --bg1: #74ebd5; 
+  --bg2: #acb6e5;
+  --danger: #e74c3c;
+  --dark: #2c3e50;
+  --light: #fff;
+}
+
+/* ===============================
+   🌍 GLOBAL STYLES
+================================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Segoe UI, Roboto, Arial, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  color: #222;
+}
+
+/* Push all page content below navbar */
+main, section, .content {
+  padding-top: 120px; /* default top padding for header */
+  max-width: 980px;
+  margin: 0 auto;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* ===============================
+   🏠 HEADER & NAVBAR
+================================= */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: linear-gradient(90deg, var(--a1), var(--a2));
+  color: var(--light);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.site-header .logo {
+  height: 44px; 
+  width: 44px; 
+  object-fit: contain; 
+  border-radius: 6px; 
+  background: #fff2; 
+  padding: 3px;
+}
+
+.center h1 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.site-header nav a {
+  color: #fff;
+  margin-left: 16px;
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+}
+
+.site-header nav a::after,
+.site-header nav a::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #ff0000, #00ffff);
+  bottom: -5px;
+  left: 0;
+  transform: scaleX(0);
+  transition: transform 0.4s ease-out;
+}
+
+.site-header nav a:hover::after {
+  transform: scaleX(1);
+}
+
+/* ===============================
+   📦 CARDS
+================================= */
+.card {
+  background: var(--light);
+  border-radius: 12px;
+  padding: 18px;
+  margin: 12px 0;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+.hero {
+  padding: 28px;
+  text-align: center;
+}
+
+.muted {
+  color: #666;
+}
+
+/* ===============================
+   🔘 BUTTONS
+================================= */
+.btn {
+  display: inline-block;
+  background: linear-gradient(45deg, var(--a1), var(--a2));
+  color: var(--light);
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.btn.outline {
+  background: transparent;
+  color: var(--a1);
+  border: 2px solid var(--a1);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: var(--light);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ===============================
+   📝 FORMS
+================================= */
+.form {
+  max-width: 520px;
+  margin: 8px auto;
+}
+
+.form label {
+  display: block;
+  margin-top: 8px;
+  font-weight: 600;
+  color: #444;
+}
+
+.form input, 
+.form select, 
+.form textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 4px;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px;
+  box-sizing: border-box;
+}
+
+.password-wrapper .toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--dark);
+  padding: 0;
+  line-height: 1;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.password-wrapper .toggle-password:hover {
+  transform: scale(1.08);
+  color: #007bff; /* blue highlight on hover */
+}
+
+.password-wrapper .toggle-password.active {
+  color: #007bff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* ===============================
+   ALERTS
+================================= */
+.alert {
+  max-width: 520px;
+  margin: 6px auto 12px auto; /* spacing below header and above card */
+  padding: 10px;
+  border-radius: 8px;
+  background: #fff0f0;
+  color: #900;
+  display: none;
+}
+
+/* ===============================
+   🔔 ALERT POSITION FIX (STICK ABOVE CARD)
+================================= */
+.alert.sticky {
+  position: fixed;
+  top: 100px;           /* distance below fixed header */
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90%;
+  z-index: 2000;        /* above everything */
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  animation: alert-pop 0.5s ease forwards;
+}
+
+
+/* ===============================
+   CAPTCHA
+================================= */
+.captcha-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.captcha-box {
+  width: 100px;
+  height: 40px;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-family: monospace;
+  color: #333;
+  user-select: none;
+}
+
+#refreshCaptcha {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background-color: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #fff;
+  font-size: 18px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+#refreshCaptcha:hover {
+  background-color: #0056b3;
+  transform: scale(1.1);
+}
+
+#refreshCaptcha:active {
+  animation: rotate 0.5s linear;
+}
+
+@keyframes rotate {
+  100% { transform: rotate(360deg); }
+}
+
+/* ===============================
+   TABLES
+================================= */
+.profile-table, 
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.profile-table th, 
+.admin-table th {
+  background: linear-gradient(90deg, var(--a1), var(--a2));
+  color: var(--light);
+  padding: 8px;
+  text-align: left;
+}
+
+.profile-table td, 
+.admin-table td {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+/* ===============================
+   GALLERY
+================================= */
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.photo-card {
+  width: 220px;
+  background: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.photo-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+#searchBtn {
+  margin-top: 10px;
+}
+
+/* ===============================
+   FEEDBACK FORM
+================================= */
+.feedback-form {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.feedback-form input, 
+.feedback-form textarea {
+  max-width: 300px;
+}
+
+/* ===============================
+   FOOTER
+================================= */
+.site-footer {
+  background: linear-gradient(90deg, #185a9d, #43cea2);
+  color: var(--light);
+  padding: 12px;
+  text-align: center;
+  margin-top: 18px;
+}
+
+/* ===============================
+   MOBILE RESPONSIVE
+================================= */
+@media (max-width: 640px) {
+  .site-header {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .card, .forgot-card {
+    margin-top: 40px; /* extra spacing to prevent header overlap */
+  }
+
+  .photo-card {
+    width: 45%;
+  }
+
+  main, section, .content {
+    padding-top: 110px; /* ensure cards start below header */
+  }
+}
+
+/* ===============================
+   FORGOT PASSWORD CARDS
+================================= */
+.forgot-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding: 60px 20px 20px;
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+}
+
+.forgot-card {
+  background: var(--light);
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+
+.forgot-card h2 {
+  margin-bottom: 20px;
+  color: var(--dark);
+}
+
+.forgot-card .form label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 600;
+  color: #444;
+}
+
+.forgot-card .form input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.forgot-card .btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background: linear-gradient(45deg, var(--a1), var(--a2));
+  color: var(--light);
+  font-weight: 700;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.forgot-card .btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.forgot-card .error {
+  background-color: #ffdddd;
+  color: var(--danger);
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
+.forgot-card .success {
+  background-color: #ddffdd;
+  color: #2c3e50;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
+.forgot-card .back-link {
+  margin-top: 15px;
+}
+
+.forgot-card .back-link a {
+  color: var(--a1);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.forgot-card .back-link a:hover {
+  text-decoration: underline;
+}
+
+/* ===============================
+   THANK YOU PAGE
+================================= */
+.thankyou-box {
+  text-align: center;
+  padding: 40px;
+  background: #f0fff4;
+  border: 2px solid #38a169;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 50px auto;
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+.thankyou-box h2 {
+  font-size: 24px;
+  color: #2f855a;
+  margin-bottom: 10px;
+}
+
+.thankyou-box p {
+  font-size: 16px;
+  color: #22543d;
+}
+
+/* ===============================
+   ENTER DETAILS PAGE FIX
+================================= */
+.form-container {
+  padding-top: 40px; /* push below fixed header */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 120px);
+}
+
+.card.form-card {
+  max-width: 600px;
+  width: 100%;
+  background: var(--light);
+  padding: 24px 28px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.form-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--dark);
+}
+
+.notice-bar {
+  background: #fffae6;
+  color: #b33a00;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-bottom: 1px solid #f0c040;
+  margin-top: 60px; /* header से नीचे */
+}
+
+.donation-card {
+  text-align: center;
+}
+
+.donation-card .qr-img {
+  max-width: 200px;
+  margin-top: 10px;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Spinner for buttons */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-top: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.slider-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.slider-container {
+  display: flex;
+  gap: 20px;
+  will-change: transform;
+}
+
+.slide {
+  flex: 0 0 auto;
+  width: 200px; 
+  height: 150px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  border: 2px solid #007bff; /* default border */
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Hover effect */
+.slide:hover {
+  transform: scale(1.05);      /* Slight zoom */
+  border-color: #ff5722;       /* Change border color on hover */
+}
+
+.alert-success, .alert-error {
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.alert-success { background: #e6ffed; color: #055a06; }
+.alert-error { background: #ffe6e6; color: #900; }
+
+.fade-out { opacity: 0; }
+

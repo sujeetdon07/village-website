@@ -1,0 +1,75 @@
+<%- include('partials/header') %>
+
+<section class="card">
+  <h2 style="text-align: center">Register</h2>
+
+  <!-- Alert inside card -->
+  <div id="regAlert" class="alert" style="display: none"></div>
+
+  <form id="registerForm" class="form">
+    <label>Name *</label>
+    <input id="name" name="name" type="text" required />
+
+    <label>Mobile *</label>
+    <input id="mobile" name="mobile" type="text" required />
+
+    <label>Email</label>
+    <input id="email" name="email" type="email" />
+
+    <label>Aadhaar (12 digits) *</label>
+    <input id="aadhaar" name="aadhaar" type="text" required />
+
+    <!-- Password with toggle -->
+    <label>Create password *</label>
+    <div class="password-wrapper">
+      <input id="password" name="password" type="password" placeholder="Enter password" required />
+      <button type="button" class="toggle-password" aria-label="Show password">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 5c-7.633 0-12 7-12 7s4.367 7 12 7 12-7 12-7-4.367-7-12-7zm0 12c-2.761
+           0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5zm0-8c-1.657
+           0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Confirm password with toggle -->
+    <label>Confirm password *</label>
+    <div class="password-wrapper">
+      <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm password" required />
+      <button type="button" class="toggle-password" aria-label="Show password">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 5c-7.633 0-12 7-12 7s4.367 7 12 7 12-7 12-7-4.367-7-12-7zm0 12c-2.761
+           0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5zm0-8c-1.657
+           0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="captcha-row">
+      <div id="captchaBox" class="captcha-box">ABCDE</div>
+      <button type="button" id="refreshCaptcha" class="small" title="Refresh CAPTCHA">↻</button>
+    </div>
+
+    <label>Enter CAPTCHA *</label>
+    <input id="captchaInput" name="captchaInput" type="text" required />
+
+    <label>Panchayat</label>
+    <input id="panchayat" name="panchayat" type="text" value="Patarhi" readonly />
+
+    <label>Village</label>
+    <select id="village" name="village">
+      <option value="">Select Village</option>
+      <option value="Patarhi">Patarhi</option>
+      <option value="Kirhindi">Kirhindi</option>
+      <option value="Teladi">Teladi</option>
+    </select>
+
+    <div class="form-row">
+      <button id="registerBtn" type="submit" class="btn">Register</button>
+      <a href="/login" class="btn outline">Login</a>
+    </div>
+  </form>
+</section>
+
+<script src="/public/js/register.js"></script>
+<%- include('partials/footer') %>

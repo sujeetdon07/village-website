@@ -1,0 +1,18 @@
+
+<hr>
+
+<section>
+  <h2>Resident Feedback</h2>
+  <% if (feedbacks.length === 0) { %>
+    <p>No feedback yet.</p>
+  <% } else { %>
+    <ul>
+      <% feedbacks.forEach(fb => { %>
+        <li>
+          <strong><%= fb.name %></strong> (<%= fb.email %>) said: 
+          "<%= fb.message %>" on <%= fb.createdAt.toDateString() %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</section>

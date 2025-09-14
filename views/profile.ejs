@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+
+<section class="card">
+  <h2 style="text-align:center">Your Profile</h2>
+
+  <table class="profile-table">
+    <tr><th>Name</th><td><%= resident.name %></td></tr>
+    <tr><th>Mobile</th><td><%= resident.mobile %></td></tr>
+    <tr><th>Email</th><td><%= resident.email %></td></tr>
+    <tr><th>Aadhaar</th><td><%= resident.aadhaar %></td></tr>
+    <tr><th>Father</th><td><%= resident.fatherName || '-' %></td></tr>
+    <tr><th>Grandfather</th><td><%= resident.grandfatherName || '-' %></td></tr>
+    <tr><th>Father Mobile</th><td><%= resident.fatherMobile || '-' %></td></tr>
+    <tr><th>Ward</th><td><%= resident.ward || '-' %></td></tr>
+    <tr><th>Panchayat</th><td><%= resident.panchayat %></td></tr>
+    <tr><th>Village</th><td><%= resident.village || '-' %></td></tr>
+  </table>
+
+  <div style="text-align:center; margin-top:12px;">
+    <a class="btn" href="/enter-details">Edit Details</a>
+    <a class="btn outline" href="/logout">Logout</a>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

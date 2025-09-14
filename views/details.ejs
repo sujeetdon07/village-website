@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<section class="card">
+  <h2>Get Details</h2>
+  <div class="form">
+    <label>Enter name to search</label>
+    <input id="searchName" type="text" placeholder="Type a name...">
+    <div style="text-align:center;">
+      <button id="searchBtn" class="btn">Search</button>
+    </div>
+  </div>
+
+  <div id="searchResults" class="container"></div>
+
+
+</section>
+
+<!-- Load external JS file -->
+<script src="/js/details.js"></script>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,20 @@
+<%- include('partials/header') %>
+
+<section class="card">
+  <h2>Village Gallery</h2>
+
+  <% if (!photos || photos.length===0) { %>
+    <p style="text-align:center">No photos yet.</p>
+  <% } else { %>
+    <div class="gallery-grid">
+      <% photos.forEach(p => { %>
+        <div class="photo-card">
+          <img src="/uploads/<%= p.filename %>" alt="photo">
+          <div class="meta">Uploaded by: <%= p.uploadedBy %></div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</section>
+
+<%- include('partials/footer') %>

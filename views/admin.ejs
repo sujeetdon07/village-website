@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: linear-gradient(135deg, #74ABE2, #5563DE);
+      color: #fff;
+    }
+    h1, h2 { text-align: center; }
+    section { margin-bottom: 40px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      color: #333;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    th { background: #5563DE; color: #fff; }
+    button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      background: #5563DE;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover { background: #3341a1; }
+    input[type="file"] {
+      margin: 10px 0;
+    }
+    .photo-gallery img {
+      max-width: 120px;
+      border-radius: 6px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Admin Dashboard</h1>
+
+  <%- include('partials/header') %>
+
+  <!-- 📸 Upload Photos -->
+  <section>
+    <h2>Upload Photos</h2>
+    <form action="/admin/upload-photo" method="POST" enctype="multipart/form-data">
+      <input type="file" name="photos" multiple required>
+      <button type="submit">Upload</button>
+    </form>
+  </section>
+
+  <!-- 🖼 Gallery -->
+  
+  <section>
+    <h2>Gallery</h2>
+    <div class="photo-gallery">
+      <% photos.forEach(photo => { %>
+        <div>
+          <img src="/uploads/<%= photo.filename %>" alt="Photo">
+          <form action="/admin/delete-photo/<%= photo._id %>" method="POST">
+            <button type="submit">Delete</button>
+          </form>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+
+  <!-- 💬 Feedback -->
+  <section>
+    <h2>Feedback</h2>
+    <table>
+      <tr>
+        <th>User</th>
+        <th>Message</th>
+        <th>Action</th>
+      </tr>
+      <% feedbacks.forEach(fb => { %>
+        <tr>
+          <td><%= fb.name %></td>
+          <td><%= fb.message %></td>
+          <td>
+            <form action="/admin/delete-feedback/<%= fb._id %>" method="POST">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+  </section>
+
+  <!-- 👥 Residents -->
+  <section>
+    <h2>Residents</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Aadhaar</th>
+        <th>Village</th>
+        <th>Panchayat</th>
+        <th>Admin?</th>
+        <th>Actions</th>
+      </tr>
+      <% residents.forEach(r => { %>
+        <tr>
+          <td><%= r.name %></td>
+          <td><%= r.mobile %></td>
+          <td><%= r.aadhaar %></td>
+          <td><%= r.village %></td>
+          <td><%= r.panchayat %></td>
+          <td><%= r.isAdmin ? "Yes" : "No" %></td>
+          <td>
+            <form action="/admin/delete-resident/<%= r._id %>" method="POST" style="display:inline;">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+  </section>
+
+</body>
+</html>
+
+<%- include('partials/footer') %>
