@@ -4,94 +4,122 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.querySelector(".toggle-password");
   const passwordInput = document.getElementById("loginPassword");
   const submitBtn = form.querySelector('button[type="submit"]');
-
   const mobileInput = document.getElementById("loginMobile");
+
+  // Show alert
+  function show(msg, isError = true) {
+    alertDiv.style.display = "block";
+    alertDiv.textContent = msg;
+    alertDiv.style.background = isError ? "#ffe6e6" : "#e6ffed";
+    alertDiv.style.color = isError ? "#900" : "#055a06";
+    alertDiv.classList.remove("show");
+    void alertDiv.offsetWidth;
+    alertDiv.classList.add("show");
+    alertDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => (alertDiv.style.display = "none"), 5000);
+  }
+
+  // Manage button state
+  function setButtonState(isLoading) {
+    if (isLoading) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner"></span> Please wait...';
+    } else {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = "Login";
+    }
+  }
+
+  // Mobile input restriction
   if (mobileInput) {
     mobileInput.addEventListener("input", () => {
       mobileInput.value = mobileInput.value.replace(/\D/g, "").slice(0, 10);
     });
   }
 
-  function show(msg, isError = true) {
-    const tempDiv = document.createElement("div");
-    tempDiv.textContent = msg;
-    tempDiv.classList.add("alert-message");
-    tempDiv.style.background = isError ? "#ffe6e6" : "#e6ffed";
-    tempDiv.style.color = isError ? "#900" : "#055a06";
-    tempDiv.style.padding = "8px";
-    tempDiv.style.borderRadius = "4px";
-    tempDiv.style.marginBottom = "10px";
-    alertDiv.appendChild(tempDiv);
-    setTimeout(() => tempDiv.remove(), 5000);
+  // Password toggle
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+      toggleBtn.textContent = passwordInput.type === "password" ? "👁️" : "🙈";
+    });
   }
-  toggleBtn.addEventListener("click", () => {
-    passwordInput.type =
-      passwordInput.type === "password" ? "text" : "password";
-    toggleBtn.textContent = passwordInput.type === "password" ? "👁️" : "🙈";
-  });
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const mobile = document.getElementById("loginMobile").value.trim();
-    const password = passwordInput.value;
+  // Form submission
+  let isSubmitting = false;
+  form.addEventListener(
+    "submit",
+    async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (isSubmitting) return;
+      isSubmitting = true;
+      setButtonState(true);
 
-    if (!/^\d{10}$/.test(mobile)) {
-      show("Mobile must be 10 digits");
-      return;
-    }
-    if (!password) {
-      show("Enter password");
-      return;
-    }
+      const mobile = mobileInput.value.trim();
+      const password = passwordInput.value;
 
-    const originalText = submitBtn.textContent;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = `Please wait <span class="spinner"></span>`;
-
-    try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mobile, password }),
-      });
-
-      // Always try to parse JSON
-      const data = await res.json().catch(() => ({}));
-
-      if (!res.ok) {
-        // Handle 401 explicitly
-        const msg =
-          data.error ||
-          (res.status === 401 ? "Invalid mobile or password" : "Login failed");
-        show(msg);
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
+      // Client-side validation
+      if (!/^\d{10}$/.test(mobile)) {
+        show("Mobile must be 10 digits");
+        setButtonState(false);
+        isSubmitting = false;
+        return;
+      }
+      if (!password) {
+        show("Enter password");
+        setButtonState(false);
+        isSubmitting = false;
         return;
       }
 
-      if (!data.success) {
-        show(data.error || "Login failed");
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-        return;
+      // API call with timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+      try {
+        const res = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ mobile, password }),
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+
+        let data;
+        try {
+          data = await res.json();
+        } catch {
+          show("Invalid server response");
+          setButtonState(false);
+          isSubmitting = false;
+          return;
+        }
+
+        if (!data.success) {
+          show(data.error || "Login failed");
+          setButtonState(false);
+          isSubmitting = false;
+          return;
+        }
+
+        show("Login successful!", false);
+        setTimeout(() => {
+          setButtonState(false);
+          isSubmitting = false;
+          window.location.href = data.redirect || "/profile";
+        }, 1000);
+      } catch (err) {
+        show(err.name === "AbortError" ? "Request timed out" : "Network error");
+        setButtonState(false);
+        isSubmitting = false;
       }
+    },
+    { capture: true }
+  );
 
-      // Success → redirect
-      window.location.href = data.redirect || "/profile";
-    } catch (err) {
-      console.error("Network error:", err);
-      show("Network error");
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
-    }
-  });
-});
-
-// Auto-hide flash messages after 5s
-document.addEventListener("DOMContentLoaded", () => {
+  // Auto-hide flash messages
   setTimeout(() => {
-    document
-      .querySelectorAll("#loginAlert .alert-message")
-      .forEach((msg) => msg.remove());
+    document.querySelectorAll("#loginAlert .alert-message").forEach((msg) => msg.remove());
   }, 5000);
 });

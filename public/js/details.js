@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const res = await fetch('/api/search?q=' + encodeURIComponent(q));
       const result = await res.json();
-      console.log("🔍 API response:", result);
 
       if (result.message) {
         out.innerHTML = `<p style="text-align:center; color: red;">${result.message}</p>`;
@@ -44,9 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       out.innerHTML = '<p style="text-align:center; color: red;">No details found</p>';
-    } catch (err) {
+    } catch {
       out.innerHTML = '<p style="text-align:center; color: red;">Server error</p>';
-      console.error(err);
     } finally {
       searchBtn.disabled = false;
       searchBtn.innerHTML = originalText;

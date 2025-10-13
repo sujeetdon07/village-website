@@ -18,6 +18,7 @@ router.get("/login", (req, res) => {
 router.get("/forgot-password", (req, res) =>
   res.render("forgot-password", { error: null, success: null })
 );
+
 router.get("/verify-otp", (req, res) => {
   const showOtp =
     process.env.SHOW_OTP === "true" || process.env.NODE_ENV !== "production";
@@ -61,6 +62,7 @@ router.post(
       return res
         .status(409)
         .json({ success: false, error: "Aadhaar already exists" });
+
     if (await Resident.findOne({ mobile }))
       return res
         .status(409)
@@ -83,6 +85,7 @@ router.post(
       mobile: resident.mobile,
       isAdmin: resident.isAdmin || false,
     };
+
     res.json({ success: true, redirect: "/enter-details" });
   })
 );
@@ -95,32 +98,23 @@ router.post(
     body("password").notEmpty().withMessage("Password is required"),
   ],
   asyncHandler(async (req, res) => {
-    // Validate request body
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res
-        .status(400)
-        .json({ success: false, error: errors.array()[0].msg });
+      return res.status(400).json({ success: false, error: errors.array()[0].msg });
     }
 
     const { mobile, password } = req.body;
-
     try {
       const resident = await Resident.findOne({ mobile });
       if (!resident) {
-        return res
-          .status(401)
-          .json({ success: false, error: "Invalid mobile or password" });
+        return res.status(401).json({ success: false, error: "Invalid mobile or password" });
       }
 
       const match = await bcrypt.compare(password, resident.passwordHash);
       if (!match) {
-        return res
-          .status(401)
-          .json({ success: false, error: "Invalid mobile or password" });
+        return res.status(401).json({ success: false, error: "Invalid mobile or password" });
       }
 
-      // Set session
       req.session.user = {
         id: resident._id,
         name: resident.name,
@@ -130,14 +124,11 @@ router.post(
 
       const redirect = resident.detailsCompleted ? "/profile" : "/enter-details";
       res.json({ success: true, redirect });
-
     } catch (err) {
-      console.error("Login error:", err);
       res.status(500).json({ success: false, error: "Server error, try again" });
     }
   })
 );
-
 
 // ---------- LOGOUT ----------
 router.get("/logout", (req, res) => {
@@ -151,19 +142,16 @@ router.post(
     const { mobile } = req.body;
     const user = await Resident.findOne({ mobile });
     if (!user)
-      return res.render("forgot-password", {
-        error: "Mobile not registered",
-        success: null,
-      });
+      return res.render("forgot-password", { error: "Mobile not registered", success: null });
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     req.session.resetOTP = otp;
     req.session.resetMobile = mobile;
     req.session.resetOTPExpiry = Date.now() + 5 * 60 * 1000; // 5 mins
 
-    console.log(`OTP for ${mobile}: ${otp}`);
     const showOtp =
       process.env.SHOW_OTP === "true" || process.env.NODE_ENV !== "production";
+
     return res.render("verify-otp", { error: null, otp: showOtp ? otp : null });
   })
 );
@@ -189,8 +177,10 @@ router.post(
 
     if (otp === req.session.resetOTP)
       return res.render("reset-password", { error: null });
+
     const showOtp =
       process.env.SHOW_OTP === "true" || process.env.NODE_ENV !== "production";
+
     return res.render("verify-otp", {
       error: "Invalid OTP",
       otp: showOtp ? req.session.resetOTP : null,
@@ -202,18 +192,15 @@ router.post(
   "/resend-otp",
   asyncHandler(async (req, res) => {
     if (!req.session.resetMobile)
-      return res
-        .status(400)
-        .json({
-          success: false,
-          error: "Session expired. Please request OTP again.",
-        });
+      return res.status(400).json({
+        success: false,
+        error: "Session expired. Please request OTP again.",
+      });
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     req.session.resetOTP = otp;
     req.session.resetOTPExpiry = Date.now() + 5 * 60 * 1000; // 5 mins
 
-    console.log(`Resent OTP for ${req.session.resetMobile}: ${otp}`);
     const showOtp =
       process.env.SHOW_OTP === "true" || process.env.NODE_ENV !== "production";
 
@@ -232,11 +219,9 @@ router.post(
     const { password, confirmPassword } = req.body;
 
     if (!req.session.resetMobile) return res.redirect("/forgot-password");
+
     if (password !== confirmPassword)
-      return res.render("reset-password", {
-        error: "Passwords do not match",
-        success: null,
-      });
+      return res.render("reset-password", { error: "Passwords do not match", success: null });
 
     const hash = await bcrypt.hash(password, 12);
     await Resident.findOneAndUpdate(
