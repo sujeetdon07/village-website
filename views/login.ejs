@@ -4,21 +4,22 @@
   <h2 style="text-align: center">Login</h2>
 
   <!-- Alert container -->
-<div id="loginAlert" class="alert">
-  <% if (success && success.length > 0) { %>
-    <div class="alert-message success">
-      <%= success[0] %>
-    </div>
-  <% } %>
+  <div id="loginAlert" class="alert">
+    <% if (success && success.length > 0) { %>
+      <div class="alert-message success">
+        <%= success[0] %>
+      </div>
+    <% } %>
 
-  <% if (error && error.length > 0) { %>
-    <div class="alert-message error">
-      <%= error[0] %>
-    </div>
-  <% } %>
-</div>
+    <% if (error && error.length > 0) { %>
+      <div class="alert-message error">
+        <%= error[0] %>
+      </div>
+    <% } %>
+  </div>
 
-  <form id="loginForm" class="form" method="POST" action="/api/login">
+  <!-- Removed method and action -->
+  <form id="loginForm" class="form">
     <label>Mobile</label>
     <input id="loginMobile" name="mobile" type="text" required />
 
@@ -40,13 +41,5 @@
 </section>
 
 <script src="/js/login.js"></script>
-
-<script>
-  setTimeout(() => {
-    const alertDiv = document.getElementById("loginAlert");
-    if(alertDiv) alertDiv.style.display = "none";
-  }, 5000);
-</script>
-
 
 <%- include('partials/footer') %>

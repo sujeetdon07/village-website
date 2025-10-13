@@ -1,42 +1,45 @@
 <%- include('partials/header') %>
-<section class="card">
-  <div class="form-card">
-    <h2>Enter Your Details</h2>
+  <section class="card">
+    <div class="form-card">
+      <h2>Enter Your Details</h2>
 
-    <form action="/enter-details" method="POST" class="form">
-      <label>Full name</label>
-      <input type="text" name="name" value="<%= resident.name %>" readonly>
+      <form action="/enter-details" method="POST" class="form">
+        <label>Full name</label>
+        <input type="text" name="name" value="<%= resident.name %>" readonly>
 
-      <label>Father's Name *</label>
-      <input type="text" name="fatherName" value="<%= resident.fatherName %>" required>
+        <label>Father's Name *</label>
+        <input type="text" name="fatherName" value="<%= resident.fatherName %>" required>
 
-      <label>Grandfather's Name *</label>
-      <input type="text" name="grandfatherName" value="<%= resident.grandfatherName %>" required>
+        <label>Grandfather's Name *</label>
+        <input type="text" name="grandfatherName" value="<%= resident.grandfatherName %>" required>
 
-      <label>Father Mobile *</label>
-      <input type="text" name="fatherMobile" value="<%= resident.fatherMobile %>" required>
+        <label>Father Mobile *</label>
+        <input type="text" name="fatherMobile" id="fatherMobile" maxlength="10" pattern="\d{10}"
+          title="Enter a 10-digit mobile number" oninput="this.value=this.value.replace(/\\D/g,'').slice(0,10)"
+          required />
 
-      <label>Ward *</label>
-      <select name="ward" required>
-        <option value="">Select Ward</option>
-        <option value="1" <%= resident.ward==='1'?'selected':'' %>>Ward 1</option>
-        <option value="2" <%= resident.ward==='2'?'selected':'' %>>Ward 2</option>
-        <option value="3" <%= resident.ward==='3'?'selected':'' %>>Ward 3</option>
-      </select>
 
-      <label>Village</label>
-      <select name="village">
-        <option value="Patarhi" <%= resident.village==='Patarhi'?'selected':'' %>>Patarhi</option>
-        <option value="Village A" <%= resident.village==='Village A'?'selected':'' %>>Village A</option>
-        <option value="Village B" <%= resident.village==='Village B'?'selected':'' %>>Village B</option>
-      </select>
+        <label>Ward *</label>
+        <select name="ward" required>
+          <option value="">Select Ward</option>
+          <option value="1" <%=resident.ward==='1' ?'selected':'' %>>Ward 1</option>
+          <option value="2" <%=resident.ward==='2' ?'selected':'' %>>Ward 2</option>
+          <option value="3" <%=resident.ward==='3' ?'selected':'' %>>Ward 3</option>
+        </select>
 
-      <div class="form-row">
-        <button type="submit" class="btn">Save Details</button>
-        <a href="/profile" class="btn outline">Skip</a>
-      </div>
-    </form>
-  </div>
-</section>
+        <label>Village</label>
+        <select name="village">
+          <option value="Patarhi" <%=resident.village==='Patarhi' ?'selected':'' %>>Patarhi</option>
+          <option value="Village A" <%=resident.village==='Village A' ?'selected':'' %>>Village A</option>
+          <option value="Village B" <%=resident.village==='Village B' ?'selected':'' %>>Village B</option>
+        </select>
 
-<%- include('partials/footer') %>
+        <div class="form-row">
+          <button type="submit" class="btn">Save Details</button>
+          <a href="/profile" class="btn outline">Skip</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <%- include('partials/footer') %>

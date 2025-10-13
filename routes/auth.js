@@ -95,30 +95,49 @@ router.post(
     body("password").notEmpty().withMessage("Password is required"),
   ],
   asyncHandler(async (req, res) => {
+    // Validate request body
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .json({ success: false, error: errors.array()[0].msg });
+    }
+
     const { mobile, password } = req.body;
 
-    const resident = await Resident.findOne({ mobile });
-    if (!resident)
-      return res
-        .status(401)
-        .json({ success: false, error: "Invalid mobile or password" });
+    try {
+      const resident = await Resident.findOne({ mobile });
+      if (!resident) {
+        return res
+          .status(401)
+          .json({ success: false, error: "Invalid mobile or password" });
+      }
 
-    const match = await bcrypt.compare(password, resident.passwordHash);
-    if (!match)
-      return res
-        .status(401)
-        .json({ success: false, error: "Invalid mobile or password" });
+      const match = await bcrypt.compare(password, resident.passwordHash);
+      if (!match) {
+        return res
+          .status(401)
+          .json({ success: false, error: "Invalid mobile or password" });
+      }
 
-    req.session.user = {
-      id: resident._id,
-      name: resident.name,
-      mobile: resident.mobile,
-      isAdmin: resident.isAdmin || false,
-    };
-    const redirect = resident.detailsCompleted ? "/profile" : "/enter-details";
-    res.json({ success: true, redirect });
+      // Set session
+      req.session.user = {
+        id: resident._id,
+        name: resident.name,
+        mobile: resident.mobile,
+        isAdmin: resident.isAdmin || false,
+      };
+
+      const redirect = resident.detailsCompleted ? "/profile" : "/enter-details";
+      res.json({ success: true, redirect });
+
+    } catch (err) {
+      console.error("Login error:", err);
+      res.status(500).json({ success: false, error: "Server error, try again" });
+    }
   })
 );
+
 
 // ---------- LOGOUT ----------
 router.get("/logout", (req, res) => {
