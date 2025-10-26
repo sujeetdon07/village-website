@@ -6,6 +6,8 @@ const residentSchema = new mongoose.Schema({
   email: { type: String, default: '' },
   aadhaar: { type: String, required: true, unique: true },
   passwordHash: { type: String, required: true },
+  dateOfBirth: { type: Date, required: true },
+  birthYear: { type: String, required: true },
 
   fatherName: { type: String, default: '' },
   grandfatherName: { type: String, default: '' },
@@ -19,11 +21,7 @@ const residentSchema = new mongoose.Schema({
   village: { type: String, default: '' },
 
   isAdmin: { type: Boolean, default: false },
-  detailsCompleted: { type: Boolean, default: false },
-
-  // 🔑 Reset password OTP
-  resetOTP: { type: String, default: null },
-  resetOTPExpiry: { type: Date, default: null }
+  detailsCompleted: { type: Boolean, default: false }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Resident', residentSchema);

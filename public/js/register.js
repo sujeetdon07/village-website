@@ -109,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const mobile = mobileInput.value.trim();
     const aadhaar = aadhaarInput.value.trim();
     const email = document.getElementById("email").value.trim();
+    const dateOfBirth = document.getElementById("dateOfBirth").value;
     const panchayat = document.getElementById("panchayat").value.trim();
     const village = document.getElementById("village").value;
     const password = passwordInput.value.trim();
@@ -119,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Client-side validation
     if (!name || name.length > 30 || !/^[A-Za-z]+( [A-Za-z]+)*$/.test(name) ||
         !/^\d{10}$/.test(mobile) || !/^\d{12}$/.test(aadhaar) ||
+        !dateOfBirth ||
         (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) ||
         !password || password.length < 6 || password !== confirm ||
         !village || captchaVal !== captchaActual) {
@@ -127,6 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
       else if (!/^[A-Za-z]+( [A-Za-z]+)*$/.test(name)) show("Name must contain only letters with single spaces between words");
       else if (!/^\d{10}$/.test(mobile)) show("Mobile must be 10 digits");
       else if (!/^\d{12}$/.test(aadhaar)) show("Aadhaar must be 12 digits");
+      else if (!dateOfBirth) show("Date of birth is required");
       else if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) show("Invalid email format");
       else if (!password) show("Password required");
       else if (password.length < 6) show("Password must be at least 6 characters");
@@ -147,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name, mobile, email, aadhaar, password, confirmPassword: confirm, panchayat, village, captchaInput: captchaVal
+          name, mobile, email, aadhaar, dateOfBirth, password, confirmPassword: confirm, panchayat, village, captchaInput: captchaVal
         }),
         signal: controller.signal,
       });

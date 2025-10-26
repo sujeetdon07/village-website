@@ -19,15 +19,6 @@ router.get("/forgot-password", (req, res) =>
   res.render("forgot-password", { error: null, success: null })
 );
 
-router.get("/verify-otp", (req, res) => {
-  const showOtp =
-    process.env.SHOW_OTP === "true" || process.env.NODE_ENV !== "production";
-  res.render("verify-otp", {
-    error: null,
-    otp: showOtp ? req.session.resetOTP || null : null,
-  });
-});
-
 // ---------- REGISTER ----------
 router.post(
   "/api/register",
@@ -41,6 +32,11 @@ router.post(
       .trim()
       .matches(/^\d{12}$/)
       .withMessage("Aadhaar must be 12 digits"),
+    body("dateOfBirth")
+      .notEmpty()
+      .withMessage("Date of birth is required")
+      .isISO8601()
+      .withMessage("Invalid date format"),
     body("password")
       .isLength({ min: 6 })
       .withMessage("Password must be at least 6 chars"),
@@ -55,7 +51,7 @@ router.post(
         .status(400)
         .json({ success: false, error: errors.array()[0].msg });
 
-    const { name, mobile, email, aadhaar, password, panchayat, village } =
+    const { name, mobile, email, aadhaar, password, panchayat, village, dateOfBirth } =
       req.body;
 
     if (await Resident.findOne({ aadhaar }))
@@ -69,12 +65,17 @@ router.post(
         .json({ success: false, error: "Mobile already registered" });
 
     const hash = await bcrypt.hash(password, 12);
+    const dob = new Date(dateOfBirth);
+    const birthYear = dob.getFullYear().toString();
+    
     const resident = await Resident.create({
       name,
       mobile,
       email: email || "",
       aadhaar,
       passwordHash: hash,
+      dateOfBirth: dob,
+      birthYear: birthYear,
       panchayat: panchayat || "Patarhi Panchayat",
       village: village || "",
     });
@@ -151,78 +152,22 @@ router.get("/logout", (req, res) => {
 router.post(
   "/forgot-password",
   asyncHandler(async (req, res) => {
-    const { mobile } = req.body;
+    const { mobile, birthYear } = req.body;
     const user = await Resident.findOne({ mobile });
     if (!user)
       return res.render("forgot-password", { error: "Mobile not registered", success: null });
 
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    req.session.resetOTP = otp;
+    // Verify birth year
+    if (user.birthYear !== birthYear)
+      return res.render("forgot-password", { error: "Birth year does not match", success: null });
+
+    // Birth year verified, allow password reset
     req.session.resetMobile = mobile;
-    req.session.resetOTPExpiry = Date.now() + 5 * 60 * 1000; // 5 mins
-
-    const showOtp =
-      process.env.SHOW_OTP === "true" || process.env.NODE_ENV !== "production";
-
-    return res.render("verify-otp", { error: null, otp: showOtp ? otp : null });
+    return res.render("reset-password", { error: null });
   })
 );
 
-router.post(
-  "/verify-otp",
-  asyncHandler(async (req, res) => {
-    const { otp } = req.body;
-
-    if (
-      !req.session.resetOTP ||
-      !req.session.resetOTPExpiry ||
-      Date.now() > req.session.resetOTPExpiry
-    ) {
-      req.session.resetOTP = null;
-      req.session.resetMobile = null;
-      req.session.resetOTPExpiry = null;
-      return res.render("verify-otp", {
-        error: "OTP expired. Please request again.",
-        otp: null,
-      });
-    }
-
-    if (otp === req.session.resetOTP)
-      return res.render("reset-password", { error: null });
-
-    const showOtp =
-      process.env.SHOW_OTP === "true" || process.env.NODE_ENV !== "production";
-
-    return res.render("verify-otp", {
-      error: "Invalid OTP",
-      otp: showOtp ? req.session.resetOTP : null,
-    });
-  })
-);
-
-router.post(
-  "/resend-otp",
-  asyncHandler(async (req, res) => {
-    if (!req.session.resetMobile)
-      return res.status(400).json({
-        success: false,
-        error: "Session expired. Please request OTP again.",
-      });
-
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    req.session.resetOTP = otp;
-    req.session.resetOTPExpiry = Date.now() + 5 * 60 * 1000; // 5 mins
-
-    const showOtp =
-      process.env.SHOW_OTP === "true" || process.env.NODE_ENV !== "production";
-
-    res.json({
-      success: true,
-      otp: showOtp ? otp : null,
-      message: "A new OTP has been sent!",
-    });
-  })
-);
+// OTP routes removed - using birth year verification instead
 
 // ---------- RESET PASSWORD ----------
 router.post(
@@ -241,9 +186,7 @@ router.post(
       { passwordHash: hash }
     );
 
-    req.session.resetOTP = null;
     req.session.resetMobile = null;
-    req.session.resetOTPExpiry = null;
     req.flash("success", "Password reset successfully");
     return res.redirect("/login");
   })

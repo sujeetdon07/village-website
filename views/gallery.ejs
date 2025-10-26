@@ -9,7 +9,7 @@
     <div class="gallery-grid">
       <% photos.forEach(p => { %>
         <div class="photo-card">
-          <img src="/uploads/<%= p.filename %>" alt="photo">
+          <img src="/uploads/<%= p.filename %>" alt="photo" class="gallery-image" data-src="/uploads/<%= p.filename %>">
           <div class="meta">Uploaded by: <%= p.uploadedBy %></div>
         </div>
       <% }) %>
@@ -17,4 +17,11 @@
   <% } %>
 </section>
 
+<!-- Fullscreen Image Modal -->
+<div id="imageModal" class="image-modal">
+  <span class="modal-close">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
+
+<script src="/js/gallery.js"></script>
 <%- include('partials/footer') %>
