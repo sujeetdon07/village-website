@@ -86,7 +86,13 @@ router.post(
       isAdmin: resident.isAdmin || false,
     };
 
-    res.json({ success: true, redirect: "/enter-details" });
+    // Save session before sending response
+    req.session.save((err) => {
+      if (err) {
+        return res.status(500).json({ success: false, error: "Session error, try again" });
+      }
+      res.json({ success: true, redirect: "/enter-details" });
+    });
   })
 );
 
@@ -122,8 +128,14 @@ router.post(
         isAdmin: resident.isAdmin || false,
       };
 
-      const redirect = resident.detailsCompleted ? "/profile" : "/enter-details";
-      res.json({ success: true, redirect });
+      // Save session before sending response
+      req.session.save((err) => {
+        if (err) {
+          return res.status(500).json({ success: false, error: "Session error, try again" });
+        }
+        const redirect = resident.detailsCompleted ? "/profile" : "/enter-details";
+        res.json({ success: true, redirect });
+      });
     } catch (err) {
       res.status(500).json({ success: false, error: "Server error, try again" });
     }
