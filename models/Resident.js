@@ -26,8 +26,4 @@ const residentSchema = new mongoose.Schema({
   resetOTPExpiry: { type: Date, default: null }
 }, { timestamps: true });
 
-// indexes
-residentSchema.index({ mobile: 1 }, { unique: true });
-residentSchema.index({ aadhaar: 1 }, { unique: true });
-
 module.exports = mongoose.model('Resident', residentSchema);
