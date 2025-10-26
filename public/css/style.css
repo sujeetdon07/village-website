@@ -753,11 +753,21 @@ main, section, .content {
   align-items: center;
 }
 
-.modal-content {
+.modal-image-container {
   max-width: 90%;
   max-height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  max-width: 100%;
+  max-height: 80vh;
   object-fit: contain;
   animation: zoomIn 0.3s ease;
+  transition: transform 0.2s ease;
+  cursor: default;
 }
 
 @keyframes zoomIn {
@@ -785,4 +795,118 @@ main, section, .content {
 
 .modal-close:hover {
   color: #ff5722;
+}
+
+/* Navigation Buttons */
+.modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  font-size: 40px;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 10001;
+  border-radius: 4px;
+}
+
+.modal-nav:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.modal-prev {
+  left: 20px;
+}
+
+.modal-next {
+  right: 20px;
+}
+
+/* Control Buttons */
+.modal-controls {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10001;
+}
+
+.control-btn {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+}
+
+.control-btn:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+}
+
+/* Image Counter */
+.image-counter {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 18px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  border-radius: 20px;
+  z-index: 10001;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modal-nav {
+    font-size: 30px;
+    padding: 12px 16px;
+  }
+  
+  .modal-prev {
+    left: 10px;
+  }
+  
+  .modal-next {
+    right: 10px;
+  }
+  
+  .modal-close {
+    top: 10px;
+    right: 20px;
+    font-size: 32px;
+  }
+  
+  .control-btn {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+  }
+  
+  .modal-controls {
+    bottom: 20px;
+    gap: 8px;
+  }
+  
+  .image-counter {
+    top: 20px;
+    font-size: 16px;
+  }
 }
