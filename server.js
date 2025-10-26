@@ -15,6 +15,9 @@ const mongoSanitize = require("express-mongo-sanitize");
 const app = express();
 const MONGO_URI = process.env.MONGO_URI;
 
+// Trust proxy for Render.com deployment
+app.set('trust proxy', 1);
+
 // ---------------- RATE LIMIT ----------------
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, 
@@ -70,7 +73,7 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24,
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax'
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
   }
 }));
 
