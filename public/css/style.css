@@ -910,3 +910,202 @@ main, section, .content {
     font-size: 16px;
   }
 }
+
+/* ===============================
+   TWO COLUMN CARDS (HOME PAGE)
+================================= */
+.two-column-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin: 20px auto;
+  max-width: 980px;
+  padding: 0 12px;
+}
+
+.disclaimer-card {
+  background: #fff3cd;
+  border-left: 4px solid #ff9800;
+}
+
+.disclaimer-card h3 {
+  color: #ff9800;
+}
+
+/* Donation Card */
+.donation-card {
+  text-align: center;
+}
+
+.qr-img {
+  max-width: 200px;
+  height: auto;
+  margin: 15px auto;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.qr-img:hover {
+  transform: scale(1.05);
+}
+
+/* Developer Card */
+.developer-card {
+  text-align: center;
+}
+
+.developer-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.developer-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--a1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.developer-photo:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.developer-profile h4 {
+  margin: 10px 0 5px 0;
+  font-size: 20px;
+  color: var(--dark);
+}
+
+/* Social Media Links */
+.social-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  transform: translateY(-3px);
+}
+
+.social-icon.youtube {
+  background-color: #FF0000;
+  color: white;
+}
+
+.social-icon.instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: white;
+}
+
+.social-icon.facebook {
+  background-color: #1877F2;
+  color: white;
+}
+
+.social-icon.linkedin {
+  background-color: #0A66C2;
+  color: white;
+}
+
+.social-icon.twitter {
+  background-color: #000000;
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .two-column-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .developer-photo {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .social-icon {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* ===============================
+   DISCLAIMER MODAL
+================================= */
+.disclaimer-modal {
+  display: flex;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.disclaimer-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.disclaimer-content h2 {
+  color: #ff9800;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.disclaimer-content p {
+  color: #333;
+  font-size: 16px;
+}
+
+@media (max-width: 640px) {
+  .disclaimer-content {
+    padding: 20px;
+  }
+  
+  .disclaimer-content p {
+    font-size: 14px;
+  }
+}

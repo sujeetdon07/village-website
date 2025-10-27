@@ -1,4 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Disclaimer Modal Handling
+  const disclaimerModal = document.getElementById("disclaimerModal");
+  const registerCard = document.getElementById("registerCard");
+  const acceptBtn = document.getElementById("acceptDisclaimer");
+  const rejectBtn = document.getElementById("rejectDisclaimer");
+
+  // Show disclaimer on page load
+  disclaimerModal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+
+  // Accept disclaimer
+  acceptBtn.addEventListener("click", () => {
+    disclaimerModal.style.display = "none";
+    registerCard.style.display = "block";
+    document.body.style.overflow = "auto";
+  });
+
+  // Reject disclaimer - redirect to home
+  rejectBtn.addEventListener("click", () => {
+    window.location.href = "/";
+  });
+
   const form = document.getElementById("registerForm");
   const alertDiv = document.getElementById("regAlert");
   const passwordInput = document.getElementById("password");

@@ -1,6 +1,20 @@
 <%- include('partials/header') %>
 
-<section class="card">
+<!-- Disclaimer Modal -->
+<div id="disclaimerModal" class="disclaimer-modal">
+  <div class="disclaimer-content">
+    <h2>⚠️ अस्वीकरण (Disclaimer)</h2>
+    <p style="text-align: justify; line-height: 1.8; margin: 20px 0;">
+      यह वेबसाइट सभी उपयोगकर्ताओं की मदद के लिए बनाई गई है। कृपया ध्यान दें कि सभी पंजीकृत (Registered) उपयोगकर्ताओं की जानकारी सार्वजनिक रूप से उपलब्ध होगी और कोई भी बिना पंजीकरण के इसे खोज सकता है। यदि आपकी जानकारी लीक होती है, तो इसके लिए वेबसाइट डेवलपर जिम्मेदार नहीं होगा। पंजीकरण से पहले इस बात को ध्यान में रखें।
+    </p>
+    <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
+      <button id="acceptDisclaimer" class="btn">मैं सहमत हूँ (I Agree)</button>
+      <button id="rejectDisclaimer" class="btn outline">रद्द करें (Cancel)</button>
+    </div>
+  </div>
+</div>
+
+<section class="card" id="registerCard" style="display: none;">
   <h2 style="text-align: center">Register</h2>
 
   <!-- Alert inside card -->

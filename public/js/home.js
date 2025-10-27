@@ -61,6 +61,26 @@ document.addEventListener("DOMContentLoaded", () => {
     img.addEventListener("click", () => openModal(index));
   });
 
+  // ---------------- QR Code and Developer Photo Modal ----------------
+  const qrImg = document.querySelector(".clickable-qr");
+  const devPhoto = document.querySelector(".clickable-dev-photo");
+
+  if (qrImg) {
+    qrImg.addEventListener("click", () => {
+      modal.style.display = "flex";
+      modalImg.src = qrImg.src;
+      document.body.style.overflow = "hidden";
+    });
+  }
+
+  if (devPhoto) {
+    devPhoto.addEventListener("click", () => {
+      modal.style.display = "flex";
+      modalImg.src = devPhoto.src;
+      document.body.style.overflow = "hidden";
+    });
+  }
+
   // Close modal events
   closeBtn.addEventListener("click", closeModal);
   modal.addEventListener("click", (e) => {
