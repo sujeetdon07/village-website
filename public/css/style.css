@@ -24,6 +24,8 @@ body {
   min-height: 100vh;
   background: linear-gradient(135deg, var(--bg1), var(--bg2));
   color: #222;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Push all page content below navbar */
@@ -33,6 +35,11 @@ main, section, .content {
   margin: 0 auto;
   padding-left: 12px;
   padding-right: 12px;
+}
+
+main {
+  flex: 1;
+  width: 100%;
 }
 
 /* ===============================
@@ -90,6 +97,34 @@ main, section, .content {
 
 .site-header nav a:hover::after {
   transform: scaleX(1);
+}
+
+/* Language Switcher */
+.language-switcher {
+  display: inline-block;
+  margin-left: 16px;
+}
+
+.lang-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  min-width: 50px;
+}
+
+.lang-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.lang-btn:active {
+  transform: scale(0.95);
 }
 
 /* ===============================
@@ -373,9 +408,10 @@ main, section, .content {
 .site-footer {
   background: linear-gradient(90deg, #185a9d, #43cea2);
   color: var(--light);
-  padding: 12px;
+  padding: 20px 12px;
   text-align: center;
-  margin-top: 18px;
+  margin-top: auto;
+  width: 100%;
 }
 
 /* ===============================

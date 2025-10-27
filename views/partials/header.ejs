@@ -5,7 +5,8 @@
   <title>Patarhi</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="/css/style.css">
-   <script src="/js/enter-submit.js" defer></script>
+  <script src="/js/language.js" defer></script>
+  <script src="/js/enter-submit.js" defer></script>
 </head>
 <body>
 <header class="site-header">
@@ -20,17 +21,24 @@
     </a>
   </div>
   <nav class="right">
-    <a href="/">Home</a>
-    <a href="/details">Get Details</a>
-    <a href="/gallery">Gallery</a>
+    <a href="/" data-translate="home">होम</a>
+    <a href="/details" data-translate="getDetails">विवरण प्राप्त करें</a>
+    <a href="/gallery" data-translate="gallery">गैलरी</a>
     <% if (user) { %>
-      <a href="/profile">Profile</a>
-      <% if (user.isAdmin) { %><a href="/admin">Admin</a><% } %>
-      <a href="/logout">Logout</a>
+      <a href="/profile" data-translate="profile">प्रोफ़ाइल</a>
+      <% if (user.isAdmin) { %><a href="/admin" data-translate="admin">एडमिन</a><% } %>
+      <a href="/logout" data-translate="logout">लॉगआउट</a>
     <% } else { %>
-      <a href="/register">Register</a>
-      <a href="/login">Login</a>
+      <a href="/register" data-translate="register">रजिस्टर करें</a>
+      <a href="/login" data-translate="login">लॉगिन</a>
     <% } %>
+    
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+      <button id="langBtn" class="lang-btn" title="Switch Language">
+        <span id="currentLang">हिं</span>
+      </button>
+    </div>
   </nav>
 </header>
 <main class="main">
