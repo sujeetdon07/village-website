@@ -3,6 +3,7 @@ const Resident = require('../models/Resident');
 const Feedback = require('../models/Feedback');
 const Gallery = require('../models/Gallery');
 const { requireAdmin } = require('../middleware/auth');
+const { cloudinary, upload } = require('../config/cloudinary');
 const path = require('path');
 const fs = require('fs');
 
@@ -78,6 +79,47 @@ router.post('/admin/delete-resident/:id', requireAdmin, async (req, res) => {
 router.post('/admin/delete-feedback/:id', requireAdmin, async (req, res) => {
   await Feedback.findByIdAndDelete(req.params.id);
   res.redirect('/admin');
+});
+
+// Upload photo to Cloudinary
+router.post('/admin/upload-photo', requireAdmin, upload.single('photo'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+
+    // Create gallery entry with Cloudinary URL
+    const photo = await Gallery.create({
+      filename: req.file.filename,
+      url: req.file.path, // Cloudinary URL
+      cloudinaryId: req.file.filename // Cloudinary public ID
+    });
+
+    res.redirect('/admin');
+  } catch (error) {
+    console.error('Upload error:', error);
+    res.status(500).json({ error: 'Failed to upload photo' });
+  }
+});
+
+// Delete photo from Cloudinary and database
+router.post('/admin/delete-photo/:id', requireAdmin, async (req, res) => {
+  try {
+    const photo = await Gallery.findById(req.params.id);
+    
+    if (photo && photo.cloudinaryId) {
+      // Delete from Cloudinary
+      await cloudinary.uploader.destroy(photo.cloudinaryId);
+    }
+    
+    // Delete from database
+    await Gallery.findByIdAndDelete(req.params.id);
+    
+    res.redirect('/admin');
+  } catch (error) {
+    console.error('Delete error:', error);
+    res.redirect('/admin');
+  }
 });
 
 module.exports = router;

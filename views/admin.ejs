@@ -122,27 +122,39 @@
   <h1>Admin Dashboard</h1>
   <%- include('partials/header') %>
 
-  <!-- 📸 Upload Photos -->
+  <!-- 📸 Upload Photos to Cloudinary -->
   <section>
-    <h2>Upload Photos</h2>
-    <form action="/admin/upload-photo" method="POST" enctype="multipart/form-data">
-      <input type="file" name="photos" multiple required />
-      <button type="submit">Upload</button>
+    <h2>📤 Upload Photos to Cloudinary</h2>
+    <form action="/admin/upload-photo" method="POST" enctype="multipart/form-data" id="uploadForm">
+      <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center;">
+        <input type="file" name="photo" accept="image/*" required style="margin: 10px 0; padding: 10px; background: white; color: #333; border-radius: 5px;" />
+        <br>
+        <button type="submit" style="padding: 10px 30px; font-size: 16px;">
+          ☁️ Upload to Cloudinary
+        </button>
+        <p style="margin-top: 10px; font-size: 14px; opacity: 0.8;">
+          Max size: 5MB | Formats: JPG, PNG, GIF, WEBP
+        </p>
+      </div>
     </form>
   </section>
 
-  <!-- 🖼 Gallery -->
+  <!-- 🖼 Gallery (Cloudinary Images) -->
   <section>
-    <h2>Gallery</h2>
+    <h2>🖼️ Gallery (<%= photos.length %> Photos)</h2>
     <div class="photo-gallery">
-      <% photos.forEach(photo => { %>
-        <div>
-          <img src="/uploads/<%= photo.filename %>" alt="Photo" data-full="/uploads/<%= photo.filename %>">
-          <form action="/admin/delete-photo/<%= photo._id %>" method="POST" class="delete-form">
-            <button type="submit">Delete</button>
-          </form>
-        </div>
-      <% }) %>
+      <% if (photos.length === 0) { %>
+        <p style="text-align: center; width: 100%; padding: 20px;">No photos uploaded yet. Upload your first photo above!</p>
+      <% } else { %>
+        <% photos.forEach(photo => { %>
+          <div>
+            <img src="<%= photo.url || '/uploads/' + photo.filename %>" alt="Photo" data-full="<%= photo.url || '/uploads/' + photo.filename %>">
+            <form action="/admin/delete-photo/<%= photo._id %>" method="POST" class="delete-form">
+              <button type="submit" style="background: #dc3545;">🗑️ Delete</button>
+            </form>
+          </div>
+        <% }) %>
+      <% } %>
     </div>
   </section>
 

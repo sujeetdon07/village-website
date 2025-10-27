@@ -8,9 +8,9 @@ router.get('/', async (req, res) => {
     // Fetch all images from the gallery, latest first
     const images = await Gallery.find().sort({ createdAt: -1 }); // Use createdAt if uploadedAt isn't defined
 
-    // Map to URLs for EJS template
+    // Map to URLs for EJS template (support both Cloudinary and local uploads)
     const imagesWithUrl = images.map(img => ({
-      url: `/uploads/${img.filename}` // Assuming files are in /public/uploads
+      url: img.url || `/uploads/${img.filename}` // Use Cloudinary URL if available, fallback to local
     }));
 
     // Render home.ejs with images array
