@@ -413,15 +413,13 @@ section, .content {
   border-radius: 6px;
   border: 1px solid #ddd;
   font-size: 14px;
-}
-
-.feedback-form input {
   height: 42px;
+  box-sizing: border-box;
 }
 
 .feedback-form textarea {
-  min-height: 42px;
-  resize: vertical;
+  resize: none;
+  font-family: inherit;
 }
 
 /* ===============================
