@@ -409,6 +409,19 @@ section, .content {
 .feedback-form input, 
 .feedback-form textarea {
   max-width: 300px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.feedback-form input {
+  height: 42px;
+}
+
+.feedback-form textarea {
+  min-height: 42px;
+  resize: vertical;
 }
 
 /* ===============================
