@@ -20,11 +20,11 @@ const translations = {
     objective: "उद्देश्य",
     objectiveText: "इस वेबसाइट का उद्देश्य गाँव के सभी लोगों को डिजिटल सुविधा प्रदान करना है। इसके माध्यम से आप अपने परिवार और गाँव की जानकारी दर्ज कर सकते हैं, पारदर्शी तरीके से विवरण देख सकते हैं और गाँव के कामकाज से जुड़े रह सकते हैं। यह प्रयास गाँव को डिजिटल और आधुनिक बनाने की दिशा में एक छोटा सा कदम है।",
     disclaimer: "⚠️ अस्वीकरण (Disclaimer)",
-    disclaimerText: "यह वेबसाइट सभी उपयोगकर्ताओं की मदद के लिए बनाई गई है। कृपया ध्यान दें कि सभी पंजीकृत (Registered) उपयोगकर्ताओं की जानकारी सार्वजनिक रूप से उपलब्ध होगी और कोई भी बिना पंजीकरण के इसे खोज सकता है। यदि आपकी जानकारी लीक होती है, तो इसके लिए वेबसाइट डेवलपर जिम्मेदार नहीं होगा। पंजीकरण से पहले इस बात को ध्यान में रखें।",
-    donation: "💰 दान करें (Donation)",
+    disclaimerText: "यह वेबसाइट सभी उपयोगकर्ताओं की सहायता के उद्देश्य से बनाई गई है। कृपया ध्यान दें कि सभी पंजीकृत उपयोगकर्ताओं के मोबाइल नंबर वेबसाइट पर प्रदर्शित होंगे, और कोई भी व्यक्ति इन्हें खोज या देख सकता है।",
+    donation: "💰 सहायता करे (Donation)",
     donationText: "इस वेबसाइट के होस्टिंग और प्रबंधन के लिए सहायता प्रदान करें",
     thankYou: "धन्यवाद!",
-    developer: "👨‍💻 डेवलपर (Developer)",
+    developer: "👨‍💻 Developer & Maintained By",
     
     // Login Page
     loginTitle: "लॉगिन",
@@ -79,11 +79,11 @@ const translations = {
     objective: "Objective",
     objectiveText: "The objective of this website is to provide digital facilities to all the people of the village. Through this you can enter your family and village information, view details transparently and stay connected with the work of the village. This effort is a small step towards making the village digital and modern.",
     disclaimer: "⚠️ Disclaimer",
-    disclaimerText: "This website is created to help all users. Please note that the information of all registered users will be publicly available and anyone can search it without registration. If your information is leaked, the website developer will not be responsible for it. Keep this in mind before registration.",
+    disclaimerText: "This website is created for the purpose of helping all users. Please note that the mobile numbers of all registered users will be displayed on the website, and anyone can search or view them.",
     donation: "💰 Donation",
     donationText: "Help with hosting and management of this website",
     thankYou: "Thank You!",
-    developer: "👨‍💻 Developer",
+    developer: "👨‍💻 Developer & Maintained By",
     
     // Login Page
     loginTitle: "Login",
