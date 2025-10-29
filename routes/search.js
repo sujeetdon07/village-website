@@ -33,7 +33,8 @@ router.get('/api/search', async (req, res) => {
 
     // Format residents
     const formattedResidents = residents.map(u => {
-      // Mask mobile numbers for female residents - show only last 4 digits
+      // Mask only the resident's own mobile for female residents - show only last 4 digits
+      // Father/Husband mobile is always shown in full
       const maskMobile = (mobile) => {
         if (!mobile || mobile === '-') return '-';
         if (u.gender === 'Female' && mobile.length === 10) {
@@ -46,8 +47,8 @@ router.get('/api/search', async (req, res) => {
         type: 'resident',
         name: u.name,
         fatherName: u.fatherName || '-',
-        mobile: maskMobile(u.mobile),
-        fatherMobile: maskMobile(u.fatherMobile),
+        mobile: maskMobile(u.mobile), // Mask if female
+        fatherMobile: u.fatherMobile || '-', // Always show full number
         ward: u.ward || '-',
         village: u.village || '-'
       };
