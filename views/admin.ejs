@@ -190,14 +190,14 @@
     <!-- Add New Contact Form -->
     <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
       <h3 style="text-align: center; margin-bottom: 15px;">Add New Contact</h3>
-      <form action="/admin/add-contact" method="POST" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 800px; margin: 0 auto;">
+      <form action="/admin/add-contact" method="POST" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; max-width: 900px; margin: 0 auto;">
         <div>
           <label style="display: block; margin-bottom: 5px;">Name *</label>
           <input type="text" name="name" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ddd;" />
         </div>
         <div>
-          <label style="display: block; margin-bottom: 5px;">Mobile (10 digits) *</label>
-          <input type="text" name="mobile" pattern="\d{10}" maxlength="10" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ddd;" />
+          <label style="display: block; margin-bottom: 5px;">Mobile *</label>
+          <input type="text" name="mobile" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ddd;" />
         </div>
         <div>
           <label style="display: block; margin-bottom: 5px;">Category *</label>
@@ -212,10 +212,6 @@
             <option value="Other">Other</option>
           </select>
         </div>
-        <div>
-          <label style="display: block; margin-bottom: 5px;">Village</label>
-          <input type="text" name="village" value="Patarhi" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ddd;" />
-        </div>
         <div style="grid-column: 1 / -1; text-align: center;">
           <button type="submit" style="padding: 10px 30px; font-size: 16px;">➕ Add Contact</button>
         </div>
@@ -229,7 +225,6 @@
         <th>Name</th>
         <th>Mobile</th>
         <th>Category</th>
-        <th>Village</th>
         <th>Actions</th>
       </tr>
       <% if (typeof importantContacts !== 'undefined' && importantContacts.length > 0) { %>
@@ -239,9 +234,8 @@
             <td><%= contact.name %></td>
             <td><%= contact.mobile %></td>
             <td><%= contact.category %></td>
-            <td><%= contact.village %></td>
             <td>
-              <button onclick="editContact('<%= contact._id %>', '<%= contact.name %>', '<%= contact.mobile %>', '<%= contact.category %>', '<%= contact.village %>')" 
+              <button onclick="editContact('<%= contact._id %>', '<%= contact.name %>', '<%= contact.mobile %>', '<%= contact.category %>')" 
                       style="background: #28a745; margin-right: 5px;">✏️ Edit</button>
               <form action="/admin/delete-contact/<%= contact._id %>" method="POST" class="delete-form" style="display:inline;">
                 <button type="submit" style="background: #dc3545;">🗑️ Delete</button>
@@ -251,7 +245,7 @@
         <% }) %>
       <% } else { %>
         <tr>
-          <td colspan="6" style="text-align: center; padding: 20px;">No important contacts added yet.</td>
+          <td colspan="5" style="text-align: center; padding: 20px;">No important contacts added yet.</td>
         </tr>
       <% } %>
     </table>
@@ -268,8 +262,8 @@
           <input type="text" id="editName" name="name" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ddd;" />
         </div>
         <div>
-          <label style="display: block; margin-bottom: 5px; color: #333;">Mobile (10 digits) *</label>
-          <input type="text" id="editMobile" name="mobile" pattern="\d{10}" maxlength="10" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ddd;" />
+          <label style="display: block; margin-bottom: 5px; color: #333;">Mobile *</label>
+          <input type="text" id="editMobile" name="mobile" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ddd;" />
         </div>
         <div>
           <label style="display: block; margin-bottom: 5px; color: #333;">Category *</label>
@@ -282,10 +276,6 @@
             <option value="Labour">Labour</option>
             <option value="Other">Other</option>
           </select>
-        </div>
-        <div>
-          <label style="display: block; margin-bottom: 5px; color: #333;">Village</label>
-          <input type="text" id="editVillage" name="village" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ddd;" />
         </div>
         <div style="display: flex; gap: 10px; justify-content: center;">
           <button type="submit" style="padding: 10px 30px;">💾 Save Changes</button>
@@ -443,12 +433,11 @@
     });
 
     // Edit Contact Modal Functions
-    function editContact(id, name, mobile, category, village) {
+    function editContact(id, name, mobile, category) {
       document.getElementById('editContactId').value = id;
       document.getElementById('editName').value = name;
       document.getElementById('editMobile').value = mobile;
       document.getElementById('editCategory').value = category;
-      document.getElementById('editVillage').value = village;
       document.getElementById('editContactForm').action = '/admin/edit-contact/' + id;
       document.getElementById('editContactModal').style.display = 'flex';
     }

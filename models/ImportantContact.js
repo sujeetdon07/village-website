@@ -9,7 +9,7 @@ const importantContactSchema = new mongoose.Schema({
   mobile: { 
     type: String, 
     required: true,
-    match: [/^\d{10}$/, 'Mobile must be 10 digits']
+    trim: true
   },
   category: {
     type: String,
@@ -23,10 +23,6 @@ const importantContactSchema = new mongoose.Schema({
       'Labour',
       'Other'
     ]
-  },
-  village: {
-    type: String,
-    default: 'Patarhi'
   }
 }, { timestamps: true });
 

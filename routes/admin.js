@@ -130,7 +130,7 @@ router.post('/admin/delete-photo/:id', requireAdmin, async (req, res) => {
 // Add important contact
 router.post('/admin/add-contact', requireAdmin, async (req, res) => {
   try {
-    const { name, mobile, category, village } = req.body;
+    const { name, mobile, category } = req.body;
     
     if (!name || !mobile || !category) {
       return res.redirect('/admin');
@@ -139,8 +139,7 @@ router.post('/admin/add-contact', requireAdmin, async (req, res) => {
     await ImportantContact.create({
       name: name.trim(),
       mobile: mobile.trim(),
-      category,
-      village: village || 'Patarhi'
+      category
     });
     
     res.redirect('/admin');
@@ -153,13 +152,12 @@ router.post('/admin/add-contact', requireAdmin, async (req, res) => {
 // Edit important contact
 router.post('/admin/edit-contact/:id', requireAdmin, async (req, res) => {
   try {
-    const { name, mobile, category, village } = req.body;
+    const { name, mobile, category } = req.body;
     
     await ImportantContact.findByIdAndUpdate(req.params.id, {
       name: name.trim(),
       mobile: mobile.trim(),
-      category,
-      village: village || 'Patarhi'
+      category
     });
     
     res.redirect('/admin');

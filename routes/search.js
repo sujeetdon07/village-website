@@ -25,7 +25,7 @@ router.get('/api/search', async (req, res) => {
 
     // Search important contacts
     const contacts = await ImportantContact.find({ name: { $regex: regex } })
-      .select('name mobile category village');
+      .select('name mobile category');
 
     if (residents.length === 0 && contacts.length === 0) {
       return res.json({ message: 'No details found' });
@@ -59,8 +59,7 @@ router.get('/api/search', async (req, res) => {
       type: 'contact',
       name: c.name,
       mobile: c.mobile,
-      category: c.category,
-      village: c.village || '-'
+      category: c.category
     }));
 
     // Combine both results

@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
                   </span>
                 </div>
                 <div>📞 Mobile: ${u.mobile}</div>
-                <div>📍 Village: ${u.village}</div>
               </div>
             `;
           } else {
