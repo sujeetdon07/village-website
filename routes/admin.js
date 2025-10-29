@@ -2,6 +2,7 @@ const express = require('express');
 const Resident = require('../models/Resident');
 const Feedback = require('../models/Feedback');
 const Gallery = require('../models/Gallery');
+const ImportantContact = require('../models/ImportantContact');
 const { requireAdmin } = require('../middleware/auth');
 const { cloudinary, upload } = require('../config/cloudinary');
 const path = require('path');
@@ -22,6 +23,9 @@ router.get('/admin', requireAdmin, async (req, res) => {
   
   // Get only 6 latest feedbacks
   const feedbacks = await Feedback.find().sort({ createdAt: -1 }).limit(6);
+  
+  // Get all important contacts
+  const importantContacts = await ImportantContact.find().sort({ category: 1, name: 1 });
   
   // Build search query for residents
   let residentQuery = {};
@@ -55,7 +59,8 @@ router.get('/admin', requireAdmin, async (req, res) => {
     totalResidents,
     currentPage: page,
     totalPages,
-    searchQuery
+    searchQuery,
+    importantContacts
   });
 });
 
@@ -118,6 +123,59 @@ router.post('/admin/delete-photo/:id', requireAdmin, async (req, res) => {
     res.redirect('/admin');
   } catch (error) {
     console.error('Delete error:', error);
+    res.redirect('/admin');
+  }
+});
+
+// Add important contact
+router.post('/admin/add-contact', requireAdmin, async (req, res) => {
+  try {
+    const { name, mobile, category, village } = req.body;
+    
+    if (!name || !mobile || !category) {
+      return res.redirect('/admin');
+    }
+    
+    await ImportantContact.create({
+      name: name.trim(),
+      mobile: mobile.trim(),
+      category,
+      village: village || 'Patarhi'
+    });
+    
+    res.redirect('/admin');
+  } catch (error) {
+    console.error('Add contact error:', error);
+    res.redirect('/admin');
+  }
+});
+
+// Edit important contact
+router.post('/admin/edit-contact/:id', requireAdmin, async (req, res) => {
+  try {
+    const { name, mobile, category, village } = req.body;
+    
+    await ImportantContact.findByIdAndUpdate(req.params.id, {
+      name: name.trim(),
+      mobile: mobile.trim(),
+      category,
+      village: village || 'Patarhi'
+    });
+    
+    res.redirect('/admin');
+  } catch (error) {
+    console.error('Edit contact error:', error);
+    res.redirect('/admin');
+  }
+});
+
+// Delete important contact
+router.post('/admin/delete-contact/:id', requireAdmin, async (req, res) => {
+  try {
+    await ImportantContact.findByIdAndDelete(req.params.id);
+    res.redirect('/admin');
+  } catch (error) {
+    console.error('Delete contact error:', error);
     res.redirect('/admin');
   }
 });

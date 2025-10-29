@@ -32,4 +32,16 @@ router.get('/profile', requireLogin, async (req, res) => {
   res.render('profile', { resident });
 });
 
+// Delete Account
+router.post('/delete-account', requireLogin, async (req, res) => {
+  try {
+    await Resident.findByIdAndDelete(req.session.user.id);
+    req.session.destroy();
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: 'Failed to delete account' });
+  }
+});
+
 module.exports = router;

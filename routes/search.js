@@ -1,5 +1,6 @@
 const express = require('express');
 const Resident = require('../models/Resident');
+const ImportantContact = require('../models/ImportantContact');
 const router = express.Router();
 
 // Render details page
@@ -17,14 +18,21 @@ router.get('/api/search', async (req, res) => {
     }
 
     const regex = new RegExp(`^${q}`, 'i');
-    const results = await Resident.find({ name: { $regex: regex } })
+    
+    // Search residents
+    const residents = await Resident.find({ name: { $regex: regex } })
       .select('name fatherName grandfatherName mobile fatherMobile ward village gender');
 
-    if (results.length === 0) {
+    // Search important contacts
+    const contacts = await ImportantContact.find({ name: { $regex: regex } })
+      .select('name mobile category village');
+
+    if (residents.length === 0 && contacts.length === 0) {
       return res.json({ message: 'No details found' });
     }
 
-    const formatted = results.map(u => {
+    // Format residents
+    const formattedResidents = residents.map(u => {
       // Mask mobile numbers for female residents - show only last 4 digits
       const maskMobile = (mobile) => {
         if (!mobile || mobile === '-') return '-';
@@ -35,6 +43,7 @@ router.get('/api/search', async (req, res) => {
       };
 
       return {
+        type: 'resident',
         name: u.name,
         fatherName: u.fatherName || '-',
         grandfatherName: u.grandfatherName || '-',
@@ -45,7 +54,19 @@ router.get('/api/search', async (req, res) => {
       };
     });
 
-    res.json({ data: formatted });
+    // Format important contacts
+    const formattedContacts = contacts.map(c => ({
+      type: 'contact',
+      name: c.name,
+      mobile: c.mobile,
+      category: c.category,
+      village: c.village || '-'
+    }));
+
+    // Combine both results
+    const allResults = [...formattedContacts, ...formattedResidents];
+
+    res.json({ data: allResults });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });
