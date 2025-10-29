@@ -54,15 +54,13 @@ router.post(
     const { name, mobile, email, aadhaar, password, panchayat, village, dateOfBirth, gender } =
       req.body;
 
+    // Check if Aadhaar already exists (must be unique)
     if (await Resident.findOne({ aadhaar }))
       return res
         .status(409)
         .json({ success: false, error: "Aadhaar already exists" });
 
-    if (await Resident.findOne({ mobile }))
-      return res
-        .status(409)
-        .json({ success: false, error: "Mobile already registered" });
+    // Mobile can be duplicate, so we don't check for it
 
     const hash = await bcrypt.hash(password, 12);
     const dob = new Date(dateOfBirth);
