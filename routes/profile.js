@@ -11,13 +11,13 @@ router.get('/enter-details', requireLogin, async (req, res) => {
 
 router.post('/enter-details', requireLogin, async (req, res) => {
   try {
-    const { fatherName, grandfatherName, fatherMobile, ward, village } = req.body;
-    if (!fatherName || !grandfatherName || !fatherMobile || !ward)
+    const { fatherName, fatherMobile, ward, village } = req.body;
+    if (!fatherName || !fatherMobile || !ward)
       return res.send('Please fill all fields');
-    if (!/^\d{10}$/.test(fatherMobile)) return res.send('Father mobile must be 10 digits');
+    if (!/^\d{10}$/.test(fatherMobile)) return res.send('Father/Husband mobile must be 10 digits');
 
     await Resident.findByIdAndUpdate(req.session.user.id, {
-      fatherName, grandfatherName, fatherMobile, ward, village, detailsCompleted: true
+      fatherName, fatherMobile, ward, village, detailsCompleted: true
     });
     res.redirect('/profile');
   } catch (err) {

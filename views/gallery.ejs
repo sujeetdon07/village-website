@@ -1,15 +1,19 @@
 <%- include('partials/header') %>
 
 <section class="card">
-  <h2>Village Gallery</h2>
+  <h2 data-translate="villageGallery">गाँव की गैलरी</h2>
 
   <% if (!photos || photos.length===0) { %>
-    <p style="text-align:center">No photos yet.</p>
+    <p style="text-align:center" data-translate="noPhotos">अभी तक कोई फोटो नहीं।</p>
   <% } else { %>
     <div class="gallery-grid">
       <% photos.forEach(p => { %>
         <div class="photo-card">
-          <img src="<%= p.url || '/uploads/' + p.filename %>" alt="photo" class="gallery-image" data-src="<%= p.url || '/uploads/' + p.filename %>">
+          <img 
+            src="<%= p.url %>" 
+            alt="<%= p.filename %>" 
+            class="gallery-image" 
+            data-src="<%= p.url %>">
           <% if (p.uploadedBy) { %>
             <div class="meta">Uploaded by: <%= p.uploadedBy %></div>
           <% } %>

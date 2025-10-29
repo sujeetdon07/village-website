@@ -35,19 +35,73 @@ const translations = {
     // Register Page
     registerTitle: "रजिस्टर करें",
     name: "नाम",
+    mobile: "मोबाइल नंबर",
     email: "ईमेल",
     aadhaar: "आधार (12 अंक)",
     dateOfBirth: "जन्म तिथि",
+    gender: "लिंग",
+    selectGender: "लिंग चुनें",
+    male: "पुरुष",
+    female: "महिला",
     createPassword: "पासवर्ड बनाएं",
     confirmPassword: "पासवर्ड की पुष्टि करें",
+    enterCaptcha: "कैप्चा दर्ज करें",
     panchayat: "पंचायत",
     village: "गाँव",
     selectVillage: "गाँव चुनें",
+    disclaimerTitle: "⚠️ अस्वीकरण (Disclaimer)",
+    disclaimerMessage: "यह वेबसाइट सभी उपयोगकर्ताओं की सहायता के उद्देश्य से बनाई गई है। कृपया ध्यान दें कि सभी पंजीकृत उपयोगकर्ताओं के मोबाइल नंबर वेबसाइट पर प्रदर्शित होंगे, और कोई भी व्यक्ति इन्हें खोज या देख सकता है।",
     
     // Details Page
+    getDetailsTitle: "विवरण प्राप्त करें",
     searchTitle: "निवासियों को खोजें",
-    searchPlaceholder: "नाम, मोबाइल, आधार से खोजें...",
-    search: "खोजें",
+    searchPlaceholder: "नाम टाइप करें...",
+    searchButton: "खोजें",
+    
+    // Profile Page
+    yourProfile: "आपकी प्रोफ़ाइल",
+    editDetails: "विवरण संपादित करें",
+    
+    // Enter Details Page
+    enterDetailsTitle: "अपना विवरण दर्ज करें",
+    fullName: "पूरा नाम",
+    fatherHusbandName: "पिता/पति का नाम",
+    fatherHusbandMobile: "पिता/पति का मोबाइल",
+    ward: "वार्ड",
+    selectWard: "वार्ड चुनें",
+    saveDetails: "विवरण सहेजें",
+    dangerZone: "खतरा क्षेत्र",
+    deleteAccount: "मेरा खाता स्थायी रूप से हटाएं",
+    deleteWarning: "⚠️ चेतावनी: यह क्रिया पूर्ववत नहीं की जा सकती!",
+    confirmDelete: "क्या आप वाकई अपना खाता हटाना चाहते हैं?",
+    yesDelete: "हाँ, हटाएं",
+    noCancel: "नहीं, रद्द करें",
+    
+    // Gallery Page
+    villageGallery: "गाँव की गैलरी",
+    noPhotos: "अभी तक कोई फोटो नहीं।",
+    
+    // Admin Page
+    adminDashboard: "एडमिन डैशबोर्ड",
+    uploadPhotos: "फोटो अपलोड करें",
+    chooseFile: "फ़ाइल चुनें",
+    uploadToCloudinary: "क्लाउडिनरी पर अपलोड करें",
+    maxSize: "अधिकतम आकार: 5MB | प्रारूप: JPG, PNG, GIF, WEBP",
+    gallery: "गैलरी",
+    photos: "फोटो",
+    delete: "हटाएं",
+    feedback: "फीडबैक",
+    latest: "नवीनतम",
+    importantContacts: "महत्वपूर्ण संपर्क",
+    addNewContact: "नया संपर्क जोड़ें",
+    category: "श्रेणी",
+    selectCategory: "श्रेणी चुनें",
+    addContact: "संपर्क जोड़ें",
+    edit: "संपादित करें",
+    residents: "निवासी",
+    totalResidents: "कुल निवासी",
+    searchResidentsPlaceholder: "नाम, मोबाइल, आधार से खोजें...",
+    actions: "क्रियाएं",
     
     // Footer
     footerText: "© 2025 पताढ़ी पंचायत। सर्वाधिकार सुरक्षित।",
@@ -56,7 +110,9 @@ const translations = {
     submit: "सबमिट करें",
     cancel: "रद्द करें",
     agree: "मैं सहमत हूँ",
-    close: "बंद करें"
+    close: "बंद करें",
+    save: "सहेजें",
+    update: "अपडेट करें"
   },
   
   en: {
@@ -94,19 +150,73 @@ const translations = {
     // Register Page
     registerTitle: "Register",
     name: "Name",
+    mobile: "Mobile Number",
     email: "Email",
     aadhaar: "Aadhaar (12 digits)",
     dateOfBirth: "Date of Birth",
+    gender: "Gender",
+    selectGender: "Select Gender",
+    male: "Male",
+    female: "Female",
     createPassword: "Create Password",
     confirmPassword: "Confirm Password",
+    enterCaptcha: "Enter CAPTCHA",
     panchayat: "Panchayat",
     village: "Village",
     selectVillage: "Select Village",
+    disclaimerTitle: "⚠️ Disclaimer",
+    disclaimerMessage: "This website is created for the purpose of helping all users. Please note that the mobile numbers of all registered users will be displayed on the website, and anyone can search or view them.",
     
     // Details Page
+    getDetailsTitle: "Get Details",
     searchTitle: "Search Residents",
-    searchPlaceholder: "Search by name, mobile, aadhaar...",
-    search: "Search",
+    searchPlaceholder: "Type a name...",
+    searchButton: "Search",
+    
+    // Profile Page
+    yourProfile: "Your Profile",
+    editDetails: "Edit Details",
+    
+    // Enter Details Page
+    enterDetailsTitle: "Enter Your Details",
+    fullName: "Full Name",
+    fatherHusbandName: "Father's Name/Husband's Name",
+    fatherHusbandMobile: "Father's/Husband's Mobile",
+    ward: "Ward",
+    selectWard: "Select Ward",
+    saveDetails: "Save Details",
+    dangerZone: "Danger Zone",
+    deleteAccount: "Delete My Account Permanently",
+    deleteWarning: "⚠️ Warning: This action cannot be undone!",
+    confirmDelete: "Are you sure you want to delete your account?",
+    yesDelete: "Yes, Delete",
+    noCancel: "No, Cancel",
+    
+    // Gallery Page
+    villageGallery: "Village Gallery",
+    noPhotos: "No photos yet.",
+    
+    // Admin Page
+    adminDashboard: "Admin Dashboard",
+    uploadPhotos: "Upload Photos to Cloudinary",
+    chooseFile: "Choose File",
+    uploadToCloudinary: "Upload to Cloudinary",
+    maxSize: "Max size: 5MB | Formats: JPG, PNG, GIF, WEBP",
+    gallery: "Gallery",
+    photos: "Photos",
+    delete: "Delete",
+    feedback: "Feedback",
+    latest: "Latest",
+    importantContacts: "Important Contacts",
+    addNewContact: "Add New Contact",
+    category: "Category",
+    selectCategory: "Select Category",
+    addContact: "Add Contact",
+    edit: "Edit",
+    residents: "Residents",
+    totalResidents: "Total Residents",
+    searchResidentsPlaceholder: "Search by name, mobile, aadhaar...",
+    actions: "Actions",
     
     // Footer
     footerText: "© 2025 Patarhi Panchayat. All Rights Reserved.",
@@ -115,7 +225,9 @@ const translations = {
     submit: "Submit",
     cancel: "Cancel",
     agree: "I Agree",
-    close: "Close"
+    close: "Close",
+    save: "Save",
+    update: "Update"
   }
 };
 
@@ -136,6 +248,14 @@ function translatePage(lang) {
       } else {
         element.textContent = translations[lang][key];
       }
+    }
+  });
+  
+  // Update elements with data-translate-placeholder attribute
+  document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+    const key = element.getAttribute('data-translate-placeholder');
+    if (translations[lang][key]) {
+      element.placeholder = translations[lang][key];
     }
   });
   

@@ -9,8 +9,7 @@ const userSchema = new mongoose.Schema({
   passwordHash: { type: String, required: true },
 
   // more details (filled on "Enter Your Details" page)
-  fatherName: { type: String, default: '' },
-  grandfatherName: { type: String, default: '' },
+  fatherName: { type: String, default: '' }, // Father's Name/Husband's Name
   fatherMobile: { type: String, default: '' },
   ward: { type: String, enum: ['1','2','3',''], default: '' },
 

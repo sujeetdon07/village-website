@@ -3,48 +3,48 @@
 <!-- Disclaimer Modal -->
 <div id="disclaimerModal" class="disclaimer-modal">
   <div class="disclaimer-content">
-    <h2>⚠️ अस्वीकरण (Disclaimer)</h2>
-    <p style="text-align: justify; line-height: 1.8; margin: 20px 0;">
+    <h2 data-translate="disclaimerTitle">⚠️ अस्वीकरण (Disclaimer)</h2>
+    <p style="text-align: justify; line-height: 1.8; margin: 20px 0;" data-translate="disclaimerMessage">
       यह वेबसाइट सभी उपयोगकर्ताओं की सहायता के उद्देश्य से बनाई गई है। कृपया ध्यान दें कि सभी पंजीकृत उपयोगकर्ताओं के मोबाइल नंबर वेबसाइट पर प्रदर्शित होंगे, और कोई भी व्यक्ति इन्हें खोज या देख सकता है।
-
+    </p>
     <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
-      <button id="acceptDisclaimer" class="btn">मैं सहमत हूँ (I Agree)</button>
-      <button id="rejectDisclaimer" class="btn outline">रद्द करें (Cancel)</button>
+      <button id="acceptDisclaimer" class="btn" data-translate="agree">मैं सहमत हूँ</button>
+      <button id="rejectDisclaimer" class="btn outline" data-translate="cancel">रद्द करें</button>
     </div>
   </div>
 </div>
 
 <section class="card" id="registerCard" style="display: none;">
-  <h2 style="text-align: center">Register</h2>
+  <h2 style="text-align: center" data-translate="registerTitle">रजिस्टर करें</h2>
 
   <!-- Alert inside card -->
   <div id="regAlert" class="alert" style="display: none"></div>
 
   <form id="registerForm" class="form">
-    <label>Name *</label>
+    <label data-translate="name">नाम *</label>
     <input id="name" name="name" type="text" required />
 
-    <label>Mobile *</label>
+    <label data-translate="mobile">मोबाइल नंबर *</label>
     <input id="mobile" name="mobile" type="text" required />
 
-    <label>Email</label>
+    <label data-translate="email">ईमेल</label>
     <input id="email" name="email" type="email" />
 
-    <label>Aadhaar (12 digits) *</label>
+    <label data-translate="aadhaar">आधार (12 अंक) *</label>
     <input id="aadhaar" name="aadhaar" type="text" required />
 
-    <label>Date of Birth *</label>
+    <label data-translate="dateOfBirth">जन्म तिथि *</label>
     <input id="dateOfBirth" name="dateOfBirth" type="date" required />
 
-    <label>Gender *</label>
+    <label data-translate="gender">लिंग *</label>
     <select id="gender" name="gender" required>
-      <option value="">Select Gender</option>
-      <option value="Male">Male (पुरुष)</option>
-      <option value="Female">Female (महिला)</option>
+      <option value="" data-translate="selectGender">लिंग चुनें</option>
+      <option value="Male" data-translate="male">पुरुष</option>
+      <option value="Female" data-translate="female">महिला</option>
     </select>
 
     <!-- Password with toggle -->
-    <label>Create password *</label>
+    <label data-translate="createPassword">पासवर्ड बनाएं *</label>
     <div class="password-wrapper">
       <input id="password" name="password" type="password" placeholder="Enter password" required />
       <button type="button" class="toggle-password" aria-label="Show password">
@@ -57,7 +57,7 @@
     </div>
 
     <!-- Confirm password with toggle -->
-    <label>Confirm password *</label>
+    <label data-translate="confirmPassword">पासवर्ड की पुष्टि करें *</label>
     <div class="password-wrapper">
       <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm password" required />
       <button type="button" class="toggle-password" aria-label="Show password">
@@ -74,23 +74,23 @@
       <button type="button" id="refreshCaptcha" class="small" title="Refresh CAPTCHA">↻</button>
     </div>
 
-    <label>Enter CAPTCHA *</label>
+    <label data-translate="enterCaptcha">कैप्चा दर्ज करें *</label>
     <input id="captchaInput" name="captchaInput" type="text" required />
 
-    <label>Panchayat</label>
+    <label data-translate="panchayat">पंचायत</label>
     <input id="panchayat" name="panchayat" type="text" value="Patarhi" readonly />
 
-    <label>Village</label>
+    <label data-translate="village">गाँव</label>
     <select id="village" name="village">
-      <option value="">Select Village</option>
+      <option value="" data-translate="selectVillage">गाँव चुनें</option>
       <option value="Patarhi">Patarhi</option>
       <option value="Kirhindi">Kirhindi</option>
       <option value="Teladi">Teladi</option>
     </select>
 
     <div class="form-row">
-      <button id="registerBtn" type="submit" class="btn">Register</button>
-      <a href="/login" class="btn outline">Login</a>
+      <button id="registerBtn" type="submit" class="btn" data-translate="register">रजिस्टर करें</button>
+      <a href="/login" class="btn outline" data-translate="login">लॉगिन</a>
     </div>
   </form>
 </section>

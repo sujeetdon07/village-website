@@ -705,23 +705,32 @@ section, .content {
 .slider-wrapper {
   overflow: hidden;
   width: 100%;
+  max-width: 100%; /* Ensure it doesn't exceed container */
 }
 
 .slider-container {
   display: flex;
-  gap: 20px;
+  gap: 10px; /* Reduced gap for tighter spacing */
   will-change: transform;
 }
 
 .slide {
   flex: 0 0 auto;
-  width: 200px; 
-  height: 150px;
+  width: 300px; /* Increased width for better visibility */
+  height: 200px; /* Increased height */
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   border: 2px solid #007bff; /* default border */
   transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+/* Responsive: smaller screens show smaller slides */
+@media (max-width: 600px) {
+  .slide {
+    width: 250px;
+    height: 170px;
+  }
 }
 
 .slide img {

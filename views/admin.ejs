@@ -148,7 +148,11 @@
       <% } else { %>
         <% photos.forEach(photo => { %>
           <div>
-            <img src="<%= photo.url || '/uploads/' + photo.filename %>" alt="Photo" data-full="<%= photo.url || '/uploads/' + photo.filename %>">
+            <img 
+              src="<%= photo.url %>" 
+              alt="<%= photo.filename %>" 
+              data-full="<%= photo.url %>"
+              style="max-width: 140px; height: auto; display: block;">
             <form action="/admin/delete-photo/<%= photo._id %>" method="POST" class="delete-form">
               <button type="submit" style="background: #dc3545;">🗑️ Delete</button>
             </form>

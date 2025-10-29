@@ -1,27 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ---------------- Slider Infinite Scroll ----------------
+  // ---------------- Slider Infinite Scroll (Right to Left) ----------------
   const sliderContainer = document.querySelector(".slider-container");
   if (sliderContainer) {
-    // Duplicate all slides for seamless infinite scroll
-    sliderContainer.innerHTML += sliderContainer.innerHTML;
-
-    let scrollAmount = 0;
-
-    function scrollSlider() {
-      scrollAmount += 1; // px per frame (speed)
-      if (scrollAmount >= sliderContainer.scrollWidth / 2) {
-        scrollAmount = 0; // reset scroll
-      }
-      sliderContainer.style.transform = `translateX(-${scrollAmount}px)`;
-      requestAnimationFrame(scrollSlider);
+    const slides = Array.from(sliderContainer.children);
+    
+    // Only duplicate if there are slides
+    if (slides.length > 0) {
+      // Duplicate all slides for seamless infinite scroll
+      slides.forEach(slide => {
+        const clone = slide.cloneNode(true);
+        sliderContainer.appendChild(clone);
+      });
+      
+      // Set container styles immediately
+      sliderContainer.style.display = "flex";
+      sliderContainer.style.gap = "20px";
+      sliderContainer.style.willChange = "transform";
+      
+      // Calculate widths after DOM update
+      setTimeout(() => {
+        const singleSetWidth = sliderContainer.scrollWidth / 2;
+        let scrollAmount = 0; // Start at position 0
+        
+        function scrollSlider() {
+          scrollAmount += 1; // Move left (1px per frame)
+          
+          // When first set completely scrolls out, reset to beginning
+          if (scrollAmount >= singleSetWidth) {
+            scrollAmount = 0;
+          }
+          
+          sliderContainer.style.transform = `translateX(-${scrollAmount}px)`;
+          requestAnimationFrame(scrollSlider);
+        }
+        
+        // Start animation immediately
+        scrollSlider();
+      }, 0);
     }
-
-    // Set container styles
-    sliderContainer.style.display = "flex";
-    sliderContainer.style.gap = "20px";
-    sliderContainer.style.willChange = "transform";
-
-    scrollSlider();
   }
 
   // ---------------- Modal Functionality ----------------

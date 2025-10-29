@@ -21,7 +21,7 @@ router.get('/api/search', async (req, res) => {
     
     // Search residents
     const residents = await Resident.find({ name: { $regex: regex } })
-      .select('name fatherName grandfatherName mobile fatherMobile ward village gender');
+      .select('name fatherName mobile fatherMobile ward village gender');
 
     // Search important contacts
     const contacts = await ImportantContact.find({ name: { $regex: regex } })
@@ -46,7 +46,6 @@ router.get('/api/search', async (req, res) => {
         type: 'resident',
         name: u.name,
         fatherName: u.fatherName || '-',
-        grandfatherName: u.grandfatherName || '-',
         mobile: maskMobile(u.mobile),
         fatherMobile: maskMobile(u.fatherMobile),
         ward: u.ward || '-',

@@ -95,9 +95,9 @@ router.post('/admin/upload-photo', requireAdmin, upload.single('photo'), async (
 
     // Create gallery entry with Cloudinary URL
     const photo = await Gallery.create({
-      filename: req.file.filename,
-      url: req.file.path, // Cloudinary URL
-      cloudinaryId: req.file.filename // Cloudinary public ID
+      filename: req.file.originalname || req.file.filename,
+      url: req.file.path, // Cloudinary URL (secure_url or path)
+      cloudinaryId: req.file.public_id || req.file.filename // Cloudinary public ID
     });
 
     res.redirect('/admin');

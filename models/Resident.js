@@ -10,12 +10,11 @@ const residentSchema = new mongoose.Schema({
   birthYear: { type: String, required: true },
 
   gender: { type: String, enum: ['Male', 'Female', ''], default: '' },
-  fatherName: { type: String, default: '' },
-  grandfatherName: { type: String, default: '' },
+  fatherName: { type: String, default: '' }, // Father's Name/Husband's Name
   fatherMobile: { 
     type: String, 
     default: '', 
-    match: [/^\d{10}$/, 'Father mobile must be 10 digits'] 
+    match: [/^\d{10}$/, 'Father/Husband mobile must be 10 digits'] 
   },
   ward: { type: String, enum: ['1', '2', '3', ''], default: '' },
   panchayat: { type: String, default: 'Patarhi Panchayat' },
