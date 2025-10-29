@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/language.js" defer></script>
   <script src="/js/enter-submit.js" defer></script>
+  <script src="/js/active-tab.js" defer></script>
 </head>
 <body>
 <header class="site-header">
@@ -21,16 +22,16 @@
     </a>
   </div>
   <nav class="right">
-    <a href="/" data-translate="home">होम</a>
-    <a href="/details" data-translate="getDetails">विवरण प्राप्त करें</a>
-    <a href="/gallery" data-translate="gallery">गैलरी</a>
+    <a href="/" class="nav-link" data-page="home" data-translate="home">होम</a>
+    <a href="/details" class="nav-link" data-page="details" data-translate="getDetails">विवरण प्राप्त करें</a>
+    <a href="/gallery" class="nav-link" data-page="gallery" data-translate="gallery">गैलरी</a>
     <% if (user) { %>
-      <a href="/profile" data-translate="profile">प्रोफ़ाइल</a>
-      <% if (user.isAdmin) { %><a href="/admin" data-translate="admin">एडमिन</a><% } %>
-      <a href="/logout" data-translate="logout">लॉगआउट</a>
+      <a href="/profile" class="nav-link" data-page="profile" data-translate="profile">प्रोफ़ाइल</a>
+      <% if (user.isAdmin) { %><a href="/admin" class="nav-link" data-page="admin" data-translate="admin">एडमिन</a><% } %>
+      <a href="/logout" class="nav-link" data-page="logout" data-translate="logout">लॉगआउट</a>
     <% } else { %>
-      <a href="/register" data-translate="register">रजिस्टर करें</a>
-      <a href="/login" data-translate="login">लॉगिन</a>
+      <a href="/register" class="nav-link" data-page="register" data-translate="register">रजिस्टर करें</a>
+      <a href="/login" class="nav-link" data-page="login" data-translate="login">लॉगिन</a>
     <% } %>
     
     <!-- Language Switcher -->

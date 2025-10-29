@@ -51,7 +51,7 @@ router.post(
         .status(400)
         .json({ success: false, error: errors.array()[0].msg });
 
-    const { name, mobile, email, aadhaar, password, panchayat, village, dateOfBirth } =
+    const { name, mobile, email, aadhaar, password, panchayat, village, dateOfBirth, gender } =
       req.body;
 
     if (await Resident.findOne({ aadhaar }))
@@ -76,6 +76,7 @@ router.post(
       passwordHash: hash,
       dateOfBirth: dob,
       birthYear: birthYear,
+      gender: gender || "",
       panchayat: panchayat || "Patarhi Panchayat",
       village: village || "",
     });

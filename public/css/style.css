@@ -103,6 +103,19 @@ section, .content {
   transform: scaleX(1);
 }
 
+/* Active tab styling */
+.site-header nav a.active {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.site-header nav a.active::after {
+  transform: scaleX(1);
+  background: linear-gradient(to right, #ffeb3b, #ff5722);
+}
+
 /* Language Switcher */
 .language-switcher {
   display: inline-block;

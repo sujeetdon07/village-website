@@ -9,6 +9,7 @@ const residentSchema = new mongoose.Schema({
   dateOfBirth: { type: Date, required: true },
   birthYear: { type: String, required: true },
 
+  gender: { type: String, enum: ['Male', 'Female', ''], default: '' },
   fatherName: { type: String, default: '' },
   grandfatherName: { type: String, default: '' },
   fatherMobile: { 

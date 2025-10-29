@@ -18,21 +18,32 @@ router.get('/api/search', async (req, res) => {
 
     const regex = new RegExp(`^${q}`, 'i');
     const results = await Resident.find({ name: { $regex: regex } })
-      .select('name fatherName grandfatherName mobile fatherMobile ward village');
+      .select('name fatherName grandfatherName mobile fatherMobile ward village gender');
 
     if (results.length === 0) {
       return res.json({ message: 'No details found' });
     }
 
-    const formatted = results.map(u => ({
-      name: u.name,
-      fatherName: u.fatherName || '-',
-      grandfatherName: u.grandfatherName || '-',
-      mobile: u.mobile || '-',
-      fatherMobile: u.fatherMobile || '-',
-      ward: u.ward || '-',
-      village: u.village || '-'
-    }));
+    const formatted = results.map(u => {
+      // Mask mobile numbers for female residents - show only last 4 digits
+      const maskMobile = (mobile) => {
+        if (!mobile || mobile === '-') return '-';
+        if (u.gender === 'Female' && mobile.length === 10) {
+          return '******' + mobile.slice(-4);
+        }
+        return mobile;
+      };
+
+      return {
+        name: u.name,
+        fatherName: u.fatherName || '-',
+        grandfatherName: u.grandfatherName || '-',
+        mobile: maskMobile(u.mobile),
+        fatherMobile: maskMobile(u.fatherMobile),
+        ward: u.ward || '-',
+        village: u.village || '-'
+      };
+    });
 
     res.json({ data: formatted });
   } catch (err) {
