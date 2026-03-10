@@ -1223,11 +1223,16 @@ section, .content {
 }
 
 .donation-card .qr-img {
-  max-width: 120px;
+  width: 120px;
+  height: auto;
   margin-top: var(--space-md);
   border: 2px solid rgba(255, 255, 255, 0.8);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
+  object-fit: contain;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .spinner {
@@ -1611,7 +1616,7 @@ section, .content {
 }
 
 .qr-img {
-  max-width: 120px;
+  width: 120px;
   height: auto;
   margin: var(--space-md) auto;
   display: block;
@@ -1620,6 +1625,7 @@ section, .content {
   cursor: pointer;
   transition: all 0.3s ease;
   border: 2px solid rgba(255, 255, 255, 0.8);
+  object-fit: contain;
 }
 
 .qr-img:hover {
@@ -1648,6 +1654,7 @@ section, .content {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: var(--shadow-md);
+  flex-shrink: 0;
 }
 
 .developer-photo:hover {
@@ -1728,43 +1735,18 @@ section, .content {
   }
 }
 
-/* ENFORCE CARD IMAGE SIZING & FOOTER FORM STYLING */
-/* ensure fixed size on wide screens too */
+/* Desktop card sizing */
 @media (min-width: 769px) {
-  .developer-photo {
-    width: 100px !important;
-    height: 100px !important;
+  .two-column-cards {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 980px;
   }
-  .donation-card .qr-img,
-  .qr-img {
-    width: 120px !important;
-    max-width: 120px !important;
-    height: auto !important;
+  
+  .social-icon {
+    width: 40px;
+    height: 40px;
   }
 }
-
-.developer-photo {
-  width: 100px !important;
-  height: 100px !important;
-  max-width: 120px !important;
-  max-height: 120px !important;
-  object-fit: cover;
-}
-
-.donation-card .qr-img,
-.qr-img {
-  width: 120px !important;
-  max-width: 120px !important;
-  height: auto !important;
-  max-height: 120px !important;
-  object-fit: contain;
-}
-
-.developer-card .social-icon {
-  width: 40px !important;
-  height: 40px !important;
-}
-
 
 /* footer-specific form appearance (content unchanged) */
 .site-footer .feedback-form {
