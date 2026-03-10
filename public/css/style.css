@@ -83,15 +83,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Push all page content below navbar + notice bar */
+/* Push all page content below fixed navbar + notice bar */
 main {
   flex: 1;
   width: 100%;
-  padding-top: 8rem; /* Increased to account for header + notice bar */
+  padding-top: 10rem; /* Increased to account for fixed header + fixed notice bar */
   max-width: 1200px;
   margin: 0 auto;
   padding-left: var(--space-md);
   padding-right: var(--space-md);
+  position: relative;
+  z-index: 1;
 }
 
 section, .content {
@@ -1134,19 +1136,26 @@ section, .content {
   border-bottom: 2px solid #f59e0b !important;
   margin: 0 !important;
   box-shadow: var(--shadow-sm) !important;
-  position: static !important;
-  overflow: hidden !important;
-  border-radius: 0 !important;
+  position: fixed !important;
+  top: 70px; /* Adjust this value to match header height */
+  left: 0;
   width: 100% !important;
   display: flex !important;
   align-items: center !important;
+  z-index: 999 !important;
+  overflow: hidden !important;
 }
 
-.notice-bar::before {
-  content: '📢' !important;
-  margin-right: var(--space-sm) !important;
-  font-size: 1.1em !important;
-  flex-shrink: 0 !important;
+@media (max-width: 768px) {
+  .notice-bar {
+    top: 120px; /* Header is taller on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .notice-bar {
+    top: 110px;
+  }
 }
 
 .notice-bar marquee {
