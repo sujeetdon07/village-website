@@ -13,6 +13,7 @@
   <script src="/js/language.js" defer></script>
   <script src="/js/enter-submit.js" defer></script>
   <script src="/js/active-tab.js" defer></script>
+  <script src="/js/navbar.js" defer></script>
 </head>
 <body>
 <header class="site-header">
@@ -53,12 +54,12 @@
       <a href="/login" class="nav-link" data-page="login" data-translate="login">लॉगइन</a>
     <% } %>
 </header>
-<!-- 🔔 Running Notice Bar (Moved outside header to prevent overlap) -->
+<main class="main">
+<!-- 🔔 Running Notice Bar (Moved inside main to ensure it scrolls with content) -->
 <div class="notice-bar">
+  <span class="announcement-icon">📢</span>
   <marquee behavior="scroll" direction="left">
     यदि आपको किसी भी प्रकार की समस्या हो तो कृपया संपर्क करें: 
     <strong>सुजीत कुमार (मो. +91 6203803766)</strong>
   </marquee>
 </div>
-<script src="/js/navbar.js"></script>
-<main class="main">

@@ -87,7 +87,7 @@ body {
 main {
   flex: 1;
   width: 100%;
-  padding-top: 80px; /* Only needs to account for the fixed header now */
+  padding-top: 80px; /* Offset for fixed header only */
   max-width: 1200px;
   margin: 0 auto;
   padding-left: var(--space-md);
@@ -890,7 +890,7 @@ section, .content {
     right: -100%;
     width: 280px;
     height: 100vh;
-    background: white !important;
+    background: #ffffff !important; /* Ensure solid background to cover notice bar */
     box-shadow: -5px 0 15px rgba(0,0,0,0.1);
     flex-direction: column;
     justify-content: flex-start;
@@ -905,6 +905,7 @@ section, .content {
   .hamburger {
     z-index: 5001;
     display: flex;
+    cursor: pointer; /* Ensure it's clickable */
   }
 
   .right.active {
@@ -920,7 +921,7 @@ section, .content {
 
   /* Adjust main padding for mobile - header only (approx 60px) */
   main {
-    padding-top: 60px;
+    padding-top: 60px; /* Mobile header offset */
   }
 
   .notice-bar {
@@ -1142,35 +1143,46 @@ section, .content {
   border-bottom: 2px solid #f59e0b !important;
   margin: 0 !important;
   box-shadow: var(--shadow-sm) !important;
-  position: relative !important; /* Change from fixed to scroll with page */
-  top: 0 !important; /* No longer needs offset as it follows header in DOM */
-  left: 0;
-  width: 100% !important;
+  position: relative !important;
+  top: 0 !important;
+  left: 10px;
+  width: calc(100% - 20px) !important;
   display: flex !important;
   align-items: center !important;
-  z-index: 100 !important; /* Lower than header and menu */
+  z-index: 5 !important;
   overflow: hidden !important;
+  margin-bottom: var(--space-md) !important;
+  border-radius: 12px !important; /* Circular corners */
+  margin-left: 10px !important;
+  margin-right: 10px !important;
 }
 
-/* Ensure no movement on desktop */
+.announcement-icon {
+  color: #ef4444 !important; /* Visual red color */
+  margin-right: 12px;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Remove all header-relative margins that were pinning it */
 @media (min-width: 769px) {
   .notice-bar {
-    margin-top: 80px; /* Offset by header height since it's now relative/static */
+    margin-top: 15px !important; /* Added gap between navbar and notice bar */
   }
 }
 
-
 @media (max-width: 768px) {
   .notice-bar {
-    top: 0 !important;
-    margin-top: 60px; /* Offset by mobile header height */
+    margin-top: 0 !important;
     background: #fef3c7 !important; 
   }
 }
 
 @media (max-width: 480px) {
   .notice-bar {
-    margin-top: 52px;
+    margin-top: 0 !important;
   }
 }
 
