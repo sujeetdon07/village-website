@@ -9,28 +9,32 @@ async function setAdmin() {
     console.log('✅ Connected to MongoDB');
 
     const email = 'sujeetpatahari@gmail.com';
-    const result = await Resident.findOneAndUpdate(
-      { email: email },
-      { isAdmin: true },
-      { new: true }
-    );
+    let user = await Resident.findOne({ $or: [{ email: email }, { mobile: '9473383137' }] });
 
-    if (result) {
-      console.log(`✅ User ${email} is now an Admin.`);
+    if (user) {
+      user.isAdmin = true;
+      user.email = email; // Ensure email is set
+      await user.save();
+      console.log(`✅ User ${user.mobile} / ${email} updated to Admin.`);
     } else {
-      console.log(`❌ User with email ${email} not found.`);
-      // Try searching by mobile if email is not set but you know the user's mobile
-      console.log('Attempting to find by mobile 9473383137...');
-      const resultByMobile = await Resident.findOneAndUpdate(
-        { mobile: '9473383137' },
-        { isAdmin: true },
-        { new: true }
-      );
-      if (resultByMobile) {
-        console.log(`✅ User with mobile 9473383137 is now an Admin.`);
-      } else {
-        console.log('❌ User not found by mobile either.');
-      }
+      console.log(`❌ User not found. Creating a new admin user...`);
+      const bcrypt = require('bcrypt');
+      const hash = await bcrypt.hash('Sujeet@6461', 10);
+      
+      const admin = new Resident({
+        name: 'Sujeet Kumar',
+        email: email,
+        mobile: '9473383137',
+        aadhaar: '523864615522', // Placeholder Aadhaar (valid 12 digits)
+        passwordHash: hash,
+        isAdmin: true,
+        detailsCompleted: true,
+        birthYear: '1995', // Placeholder
+        dateOfBirth: new Date('1995-01-01') // Placeholder
+      });
+      
+      await admin.save();
+      console.log(`✅ Admin user created: mobile=9473383137 email=${email} password=Sujeet@6461`);
     }
 
     process.exit(0);

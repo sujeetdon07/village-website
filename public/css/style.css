@@ -1137,7 +1137,7 @@ section, .content {
   margin: 0 !important;
   box-shadow: var(--shadow-sm) !important;
   position: fixed !important;
-  top: 70px; /* Adjust this value to match header height */
+  top: 80px; /* Matches header height (Logo 48px + 16px*2 padding) */
   left: 0;
   width: 100% !important;
   display: flex !important;
@@ -1148,13 +1148,13 @@ section, .content {
 
 @media (max-width: 768px) {
   .notice-bar {
-    top: 120px; /* Header is taller on mobile */
+    top: 64px; /* Header is shorter on mobile (padding-sm) */
   }
 }
 
 @media (max-width: 480px) {
   .notice-bar {
-    top: 110px;
+    top: 60px;
   }
 }
 
@@ -1236,7 +1236,7 @@ section, .content {
 
 .slider-container {
   display: flex;
-  gap: 10px; /* Reduced gap for tighter spacing */
+  gap: 20px; /* Match JS gap for calculation accuracy */
   will-change: transform;
 }
 
@@ -1798,19 +1798,7 @@ section, .content {
 /* ===============================
    FINAL DESKTOP OVERRIDES - ENSURE STYLES APPLY
 ================================= */
-/* Mobile-specific notice bar fixes */
-@media (max-width: 768px) {
-  main > .notice-bar {
-    margin-top: 0 !important;
-    position: static !important;
-    width: 100% !important;
-  }
-  
-  .notice-bar {
-    position: static !important;
-    margin: 0 !important;
-  }
-}
+/* Removed redundant mobile notice bar override - now handled above */
 
 @media (min-width: 769px) {
   /* Force 2-column layout on desktop */
