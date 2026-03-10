@@ -3,25 +3,45 @@
 <head>
   <meta charset="utf-8">
   <title>Patarhi</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css?v=1.20">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="/favicon.svg">
   <script src="/js/language.js" defer></script>
   <script src="/js/enter-submit.js" defer></script>
   <script src="/js/active-tab.js" defer></script>
+  <script src="/js/navbar.js" defer></script>
 </head>
 <body>
 <header class="site-header">
-  <div class="left">
-    <a href="/" style="display: flex; align-items: center;">
-      <img src="/uploads/patahari_logo.jpg" alt="logo" class="logo" onerror="this.style.display='none'">
-    </a>
+  <div class="top-bar">
+    <div class="left">
+      <a href="/" style="display: flex; align-items: center;">
+        <img src="/uploads/patahari_logo.jpg" alt="logo" class="logo" onerror="this.style.display='none'">
+      </a>
+    </div>
+    <div class="center">
+      <a href="/" style="text-decoration: none; color: inherit;">
+        <h1>आदर्श ग्राम पताढ़ी</h1>
+      </a>
+    </div>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+      <button id="langBtn" class="lang-btn" title="Switch Language">
+        <span id="currentLang">हिं</span>
+      </button>
+    </div>
+    <!-- Hamburger Menu Button -->
+    <div class="hamburger" id="hamburger-btn">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
   </div>
-  <div class="center">
-    <a href="/" style="text-decoration: none; color: inherit;">
-      <h1>आदर्श ग्राम पताढ़ी</h1>
-    </a>
-  </div>
-  <nav class="right">
+  <nav class="right" id="nav-menu">
     <a href="/" class="nav-link" data-page="home" data-translate="home">होम</a>
     <a href="/details" class="nav-link" data-page="details" data-translate="getDetails">विवरण प्राप्त करें</a>
     <a href="/gallery" class="nav-link" data-page="gallery" data-translate="gallery">गैलरी</a>
@@ -31,15 +51,15 @@
       <a href="/logout" class="nav-link" data-page="logout" data-translate="logout">लॉगआउट</a>
     <% } else { %>
       <a href="/register" class="nav-link" data-page="register" data-translate="register">रजिस्टर करें</a>
-      <a href="/login" class="nav-link" data-page="login" data-translate="login">लॉगिन</a>
+      <a href="/login" class="nav-link" data-page="login" data-translate="login">लॉगइन</a>
     <% } %>
-    
-    <!-- Language Switcher -->
-    <div class="language-switcher">
-      <button id="langBtn" class="lang-btn" title="Switch Language">
-        <span id="currentLang">हिं</span>
-      </button>
-    </div>
-  </nav>
 </header>
 <main class="main">
+<!-- 🔔 Running Notice Bar (Moved inside main to ensure it scrolls with content) -->
+<div class="notice-bar">
+  <span class="announcement-icon">📢</span>
+  <marquee behavior="scroll" direction="left">
+    यदि आपको किसी भी प्रकार की समस्या हो तो कृपया संपर्क करें: 
+    <strong>सुजीत कुमार (मो. +91 6203803766)</strong>
+  </marquee>
+</div>
