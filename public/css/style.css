@@ -957,7 +957,7 @@ section, .content {
   }
 
   .notice-bar {
-    margin-top: calc(var(--space-lg) + var(--space-sm));
+    margin-top: calc(var(--space-lg) + var(--space-md));
   }
 
   /* make sure nav does not float under the notice on mobile */
@@ -1729,6 +1729,20 @@ section, .content {
 }
 
 /* ENFORCE CARD IMAGE SIZING & FOOTER FORM STYLING */
+/* ensure fixed size on wide screens too */
+@media (min-width: 769px) {
+  .developer-photo {
+    width: 100px !important;
+    height: 100px !important;
+  }
+  .donation-card .qr-img,
+  .qr-img {
+    width: 120px !important;
+    max-width: 120px !important;
+    height: auto !important;
+  }
+}
+
 .developer-photo {
   width: 100px !important;
   height: 100px !important;
