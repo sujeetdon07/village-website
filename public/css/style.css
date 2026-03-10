@@ -956,6 +956,10 @@ section, .content {
     gap: var(--space-sm);
   }
 
+  .notice-bar {
+    margin-top: var(--space-lg);
+  }
+
   .center h1 {
     font-size: 1rem;
   }
@@ -1186,7 +1190,8 @@ section, .content {
   min-height: 40px;
   display: flex;
   align-items: center;
-}
+  z-index: 1001; /* sit above fixed header */
+} 
 
 .notice-bar::before {
   content: '📢';
@@ -1720,18 +1725,22 @@ section, .content {
 .developer-photo {
   width: 100px !important;
   height: 100px !important;
+  max-width: 120px !important;
+  max-height: 120px !important;
 }
 
 .donation-card .qr-img,
 .qr-img {
   max-width: 120px !important;
-  width: auto;
+  width: auto !important;
+  max-height: 120px !important;
 }
 
 .developer-card .social-icon {
   width: 40px !important;
   height: 40px !important;
 }
+
 
 /* footer-specific form appearance (content unchanged) */
 .site-footer .feedback-form {
