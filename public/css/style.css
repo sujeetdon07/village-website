@@ -1144,17 +1144,14 @@ section, .content {
   margin: 0 !important;
   box-shadow: var(--shadow-sm) !important;
   position: relative !important;
-  top: 0 !important;
-  left: 10px;
-  width: calc(100% - 20px) !important;
+  left: 0 !important;
+  width: 100% !important;
   display: flex !important;
   align-items: center !important;
   z-index: 5 !important;
   overflow: hidden !important;
   margin-bottom: var(--space-md) !important;
   border-radius: 12px !important; /* Circular corners */
-  margin-left: 10px !important;
-  margin-right: 10px !important;
 }
 
 .announcement-icon {
