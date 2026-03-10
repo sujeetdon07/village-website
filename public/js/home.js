@@ -17,26 +17,35 @@ document.addEventListener("DOMContentLoaded", () => {
       sliderContainer.style.gap = "20px";
       sliderContainer.style.willChange = "transform";
       
-      // Calculate widths after DOM update
-      setTimeout(() => {
+      // Function to initialize scroll
+      function initScroll() {
         const singleSetWidth = sliderContainer.scrollWidth / 2;
-        let scrollAmount = 0; // Start at position 0
+        let scrollAmount = 0;
+        let animationId;
         
         function scrollSlider() {
-          scrollAmount += 1; // Move left (1px per frame)
-          
-          // When first set completely scrolls out, reset to beginning
+          scrollAmount += 0.8; // Slightly smoother speed
           if (scrollAmount >= singleSetWidth) {
             scrollAmount = 0;
           }
-          
           sliderContainer.style.transform = `translateX(-${scrollAmount}px)`;
-          requestAnimationFrame(scrollSlider);
+          animationId = requestAnimationFrame(scrollSlider);
         }
         
-        // Start animation immediately
+        // Pause on hover
+        sliderContainer.addEventListener("mouseenter", () => cancelAnimationFrame(animationId));
+        sliderContainer.addEventListener("mouseleave", () => animationId = requestAnimationFrame(scrollSlider));
+        
         scrollSlider();
-      }, 0);
+      }
+
+      // Ensure images are loaded before calculating width
+      const firstImage = sliderContainer.querySelector("img");
+      if (firstImage && !firstImage.complete) {
+        firstImage.addEventListener("load", initScroll);
+      } else {
+        initScroll();
+      }
     }
   }
 
