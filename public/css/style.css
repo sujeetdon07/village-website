@@ -1189,15 +1189,16 @@ section, .content {
   font-weight: 600;
   padding: var(--space-sm) var(--space-lg);
   border-bottom: 3px solid #f59e0b;
-  margin: 0 0 var(--space-lg) 0;
+  margin: 5rem 0 var(--space-lg) 0;
   box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  border-radius: 0;
   min-height: 40px;
   display: flex;
   align-items: center;
-  z-index: 1001; /* sit above fixed header */
+  z-index: 1001;
+  margin-top: 5.5rem;
 } 
 
 .notice-bar::before {
@@ -1223,16 +1224,17 @@ section, .content {
 }
 
 .donation-card .qr-img {
-  width: 120px;
-  height: auto;
+  width: 120px !important;
+  height: auto !important;
   margin-top: var(--space-md);
   border: 2px solid rgba(255, 255, 255, 0.8);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
-  object-fit: contain;
+  object-fit: contain !important;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  max-width: 120px !important;
 }
 
 .spinner {
@@ -1610,22 +1612,18 @@ section, .content {
   color: #ff9800;
 }
 
-/* Donation Card */
-.donation-card {
-  text-align: center;
-}
-
 .qr-img {
-  width: 120px;
-  height: auto;
-  margin: var(--space-md) auto;
-  display: block;
+  width: 120px !important;
+  height: auto !important;
+  margin: var(--space-md) auto !important;
+  display: block !important;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
   cursor: pointer;
   transition: all 0.3s ease;
   border: 2px solid rgba(255, 255, 255, 0.8);
-  object-fit: contain;
+  object-fit: contain !important;
+  max-width: 120px !important;
 }
 
 .qr-img:hover {
@@ -1646,15 +1644,17 @@ section, .content {
 }
 
 .developer-photo {
-  width: 100px;
-  height: 100px;
+  width: 100px !important;
+  height: 100px !important;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: cover !important;
   border: 3px solid var(--primary-1);
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: var(--shadow-md);
   flex-shrink: 0;
+  max-width: 100px !important;
+  max-height: 100px !important;
 }
 
 .developer-photo:hover {
@@ -1679,14 +1679,15 @@ section, .content {
 }
 
 .social-icon {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
   transition: transform 0.3s ease, background-color 0.3s ease;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .social-icon:hover {
@@ -1742,9 +1743,23 @@ section, .content {
     max-width: 980px;
   }
   
+  .developer-photo {
+    width: 100px !important;
+    height: 100px !important;
+    max-width: 100px !important;
+    max-height: 100px !important;
+  }
+  
+  .qr-img,
+  .donation-card .qr-img {
+    width: 120px !important;
+    height: auto !important;
+    max-width: 120px !important;
+  }
+  
   .social-icon {
-    width: 40px;
-    height: 40px;
+    width: 40px !important;
+    height: 40px !important;
   }
 }
 
