@@ -1091,12 +1091,13 @@ section, .content {
   background: linear-gradient(135deg, #fef3c7, #fde68a);
   color: #92400e;
   font-weight: 600;
-  padding: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
   border-bottom: 3px solid #f59e0b;
   margin: 0 0 var(--space-lg) 0;
   box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 
 .notice-bar::before {
@@ -1108,6 +1109,8 @@ section, .content {
 .notice-bar marquee {
   font-size: 0.95rem;
   letter-spacing: 0.025em;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Adjust spacing for content after notice bar */
@@ -1120,11 +1123,11 @@ section, .content {
 }
 
 .donation-card .qr-img {
-  max-width: 200px;
-  margin-top: 10px;
-  border: 2px solid #eee;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  max-width: 120px;
+  margin-top: var(--space-md);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
 }
 
 .spinner {
@@ -1508,18 +1511,20 @@ section, .content {
 }
 
 .qr-img {
-  max-width: 200px;
+  max-width: 120px;
   height: auto;
-  margin: 15px auto;
+  margin: var(--space-md) auto;
   display: block;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.8);
 }
 
 .qr-img:hover {
   transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
 }
 
 /* Developer Card */
@@ -1535,18 +1540,20 @@ section, .content {
 }
 
 .developer-photo {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid var(--a1);
+  border: 3px solid var(--primary-1);
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
 }
 
 .developer-photo:hover {
   transform: scale(1.1);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-2);
 }
 
 .developer-profile h4 {
