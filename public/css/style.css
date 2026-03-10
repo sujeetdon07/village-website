@@ -957,7 +957,14 @@ section, .content {
   }
 
   .notice-bar {
-    margin-top: var(--space-lg);
+    margin-top: calc(var(--space-lg) + var(--space-sm));
+  }
+
+  /* make sure nav does not float under the notice on mobile */
+  @media (max-width: 480px) {
+    .site-header {
+      margin-bottom: var(--space-sm);
+    }
   }
 
   .center h1 {
@@ -1177,7 +1184,7 @@ section, .content {
 }
 
 .notice-bar {
-  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  background: linear-gradient(135deg, #fef3c7, #fde68a) !important;
   color: #92400e;
   font-weight: 600;
   padding: var(--space-sm) var(--space-lg);
@@ -1727,13 +1734,16 @@ section, .content {
   height: 100px !important;
   max-width: 120px !important;
   max-height: 120px !important;
+  object-fit: cover;
 }
 
 .donation-card .qr-img,
 .qr-img {
+  width: 120px !important;
   max-width: 120px !important;
-  width: auto !important;
+  height: auto !important;
   max-height: 120px !important;
+  object-fit: contain;
 }
 
 .developer-card .social-icon {
