@@ -26,7 +26,7 @@ git push -u origin main
    - **Build Command**: `npm install`
    - **Start Command**: `npm start`
 6. **CRITICAL**: Add Environment Variables in Render Dashboard:
-   - `MONGO_URI`: Your MongoDB Atlas connection string (starts with `mongodb+srv://`)
+   - `MONGO_URI`: `mongodb+srv://sujeetpatahari_db_user:MdpYSYN8Wazd2a3t@myvillagedb.qh3kgsb.mongodb.net/?appName=myVillageDB`
    - `SESSION_SECRET`: A random secret string (generate at https://randomkeygen.com/)
    - `NODE_ENV`: `production`
    - `PORT`: Leave empty (Render will set this automatically)
