@@ -94,6 +94,12 @@ main {
   padding-right: var(--space-md);
 }
 
+main > .notice-bar {
+  margin-top: 0 !important;
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+}
+
 section, .content {
   max-width: 1200px;
   margin: 0 auto;
@@ -1185,33 +1191,35 @@ section, .content {
 
 .notice-bar {
   background: linear-gradient(135deg, #fef3c7, #fde68a) !important;
-  color: #92400e;
-  font-weight: 600;
-  padding: var(--space-sm) var(--space-lg);
-  border-bottom: 3px solid #f59e0b;
-  margin: 5rem 0 var(--space-lg) 0;
-  box-shadow: var(--shadow-sm);
-  position: relative;
-  overflow: hidden;
-  border-radius: 0;
-  min-height: 40px;
-  display: flex;
-  align-items: center;
-  z-index: 1001;
-  margin-top: 5.5rem;
+  color: #92400e !important;
+  font-weight: 600 !important;
+  padding: 0.75rem var(--space-lg) !important;
+  border-bottom: 3px solid #f59e0b !important;
+  margin: 0 !important;
+  box-shadow: var(--shadow-sm) !important;
+  position: static !important;
+  overflow: hidden !important;
+  border-radius: 0 !important;
+  min-height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  z-index: 999 !important;
+  width: 100% !important;
 } 
 
 .notice-bar::before {
-  content: '📢';
-  margin-right: var(--space-sm);
-  font-size: 1.1em;
+  content: '📢' !important;
+  margin-right: var(--space-sm) !important;
+  font-size: 1.1em !important;
+  flex-shrink: 0 !important;
 }
 
 .notice-bar marquee {
-  font-size: 0.95rem;
-  letter-spacing: 0.025em;
-  font-weight: 700;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-size: 0.95rem !important;
+  letter-spacing: 0.025em !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  width: 100% !important;
 }
 
 /* Adjust spacing for content after notice bar */
@@ -1842,5 +1850,75 @@ section, .content {
   
   .disclaimer-content p {
     font-size: 14px;
+  }
+}
+/* ===============================
+   FINAL DESKTOP OVERRIDES - ENSURE STYLES APPLY
+================================= */
+/* Mobile-specific notice bar fixes */
+@media (max-width: 768px) {
+  main > .notice-bar {
+    margin-top: 0 !important;
+    position: static !important;
+    width: 100% !important;
+  }
+  
+  .notice-bar {
+    position: static !important;
+    margin: 0 !important;
+  }
+}
+
+@media (min-width: 769px) {
+  /* Force 2-column layout on desktop */
+  body .two-column-cards {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    max-width: 980px !important;
+    gap: 20px !important;
+  }
+  
+  /* Force card image sizing on desktop */
+  body .developer-photo,
+  body img.developer-photo {
+    width: 100px !important;
+    height: 100px !important;
+    max-width: 100px !important;
+    max-height: 100px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+  }
+  
+  /* Force QR code sizing on desktop */
+  body .qr-img,
+  body .donation-card .qr-img,
+  body img.qr-img {
+    width: 120px !important;
+    height: auto !important;
+    max-width: 120px !important;
+    max-height: 120px !important;
+    object-fit: contain !important;
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  /* Force social icon sizing on desktop */
+  body .social-icon {
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
+  }
+  
+  /* Ensure donation and developer cards stack horizontally */
+  body .donation-card,
+  body .developer-card {
+    flex: 1 !important;
   }
 }
