@@ -25,9 +25,11 @@ git push -u origin main
    - **Environment**: Node
    - **Build Command**: `npm install`
    - **Start Command**: `npm start`
-6. Add Environment Variables:
-   - `MONGO_URI`: Your MongoDB connection string
-   - `SESSION_SECRET`: A random secret string
+6. **CRITICAL**: Add Environment Variables in Render Dashboard:
+   - `MONGO_URI`: Your MongoDB Atlas connection string (starts with `mongodb+srv://`)
+   - `SESSION_SECRET`: A random secret string (generate at https://randomkeygen.com/)
+   - `NODE_ENV`: `production`
+   - `PORT`: Leave empty (Render will set this automatically)
    - `NODE_ENV`: production
 7. Click "Deploy"
 

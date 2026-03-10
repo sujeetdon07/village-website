@@ -13,7 +13,14 @@ const mongoSanitize = require("express-mongo-sanitize");
 
 // ---------------- CREATE APP ----------------
 const app = express();
-const MONGO_URI = process.env.MONGO_URI;
+const MONGO_URI = process.env.MONGO_URI || process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/villageDB';
+
+// Validate MongoDB URI
+if (!MONGO_URI || MONGO_URI === 'your_mongodb_uri_here') {
+  console.error('❌ MONGO_URI environment variable is not set or is placeholder!');
+  console.error('Please set MONGO_URI in your environment variables.');
+  process.exit(1);
+}
 
 // Trust proxy for Render.com deployment
 app.set('trust proxy', 1);
@@ -108,11 +115,22 @@ app.use((req, res, next) => {
 
 // ---------------- MONGOOSE ----------------
 
-mongoose.connect(process.env.MONGO_URI, {
-  tls: true // Atlas requires TLS
+mongoose.connect(MONGO_URI, {
+  serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
+  socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+  maxPoolSize: 10, // Maintain up to 10 socket connections
+  serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
+  socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+  family: 4 // Use IPv4, skip trying IPv6
 })
 .then(() => console.log('✅ Connected to MongoDB'))
-.catch(err => console.error('❌ MongoDB connection error:', err));
+.catch(err => {
+  console.error('❌ MongoDB connection error:', err.message);
+  // Don't exit process in production - let the app start and retry
+  if (process.env.NODE_ENV !== 'production') {
+    process.exit(1);
+  }
+});
 
 
 // ---------------- ROUTES ----------------
