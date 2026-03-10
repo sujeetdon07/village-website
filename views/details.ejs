@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<section class="card">
+  <h2 data-translate="getDetailsTitle">विवरण प्राप्त करें</h2>
+  <div class="form">
+    <label data-translate="searchPlaceholder">नाम टाइप करें...</label>
+    <input id="searchName" type="text" placeholder="Type a name..." data-translate-placeholder="searchPlaceholder">
+    <div style="text-align:center;">
+      <button id="searchBtn" class="btn" data-translate="searchButton">खोजें</button>
+    </div>
+  </div>
+
+  <div id="searchResults" class="container"></div>
+
+
+</section>
+
+<!-- Load external JS file -->
+<script src="/js/details.js"></script>
+
+<%- include('partials/footer') %>

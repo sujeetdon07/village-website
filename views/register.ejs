@@ -1,0 +1,103 @@
+<%- include('partials/header') %>
+
+<!-- Disclaimer Modal -->
+<div id="disclaimerModal" class="disclaimer-modal">
+  <div class="disclaimer-content">
+    <h2 data-translate="disclaimerTitle">⚠️ अस्वीकरण (Disclaimer)</h2>
+    <p style="text-align: justify; line-height: 1.8; margin: 20px 0;" data-translate="disclaimerMessage">
+      यह वेबसाइट सभी उपयोगकर्ताओं की सहायता के उद्देश्य से बनाई गई है। कृपया ध्यान दें कि सभी पंजीकृत उपयोगकर्ताओं के मोबाइल नंबर वेबसाइट पर प्रदर्शित होंगे, और कोई भी व्यक्ति इन्हें खोज या देख सकता है।
+    </p>
+    <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
+      <button id="acceptDisclaimer" class="btn" data-translate="agree">मैं सहमत हूँ</button>
+      <button id="rejectDisclaimer" class="btn outline" data-translate="cancel">रद्द करें</button>
+    </div>
+  </div>
+</div>
+
+<section class="card" id="registerCard" style="display: none;">
+  <h2 style="text-align: center" data-translate="registerTitle">रजिस्टर करें</h2>
+
+  <!-- Alert inside card -->
+  <div id="regAlert" class="alert" style="display: none"></div>
+
+  <form id="registerForm" class="form">
+    <label data-translate="name">नाम *</label>
+    <input id="name" name="name" type="text" required />
+
+    <label data-translate="mobile">मोबाइल नंबर *</label>
+    <input id="mobile" name="mobile" type="text" maxlength="10" pattern="\d{10}" 
+      title="Enter exactly 10 digits" 
+      oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)" required />
+
+    <label data-translate="email">ईमेल</label>
+    <input id="email" name="email" type="email" />
+
+    <label data-translate="aadhaar">आधार (12 अंक) *</label>
+    <input id="aadhaar" name="aadhaar" type="text" maxlength="12" pattern="\d{12}" 
+      title="Enter exactly 12 digits" 
+      oninput="this.value=this.value.replace(/\D/g,'').slice(0,12)" required />
+
+    <label data-translate="dateOfBirth">जन्म तिथि *</label>
+    <input id="dateOfBirth" name="dateOfBirth" type="date" required />
+
+    <label data-translate="gender">लिंग *</label>
+    <select id="gender" name="gender" required>
+      <option value="" data-translate="selectGender">लिंग चुनें</option>
+      <option value="Male" data-translate="male">पुरुष</option>
+      <option value="Female" data-translate="female">महिला</option>
+    </select>
+
+    <!-- Password with toggle -->
+    <label data-translate="createPassword">पासवर्ड बनाएं *</label>
+    <div class="password-wrapper">
+      <input id="password" name="password" type="password" placeholder="Enter password" required />
+      <button type="button" class="toggle-password" aria-label="Show password">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 5c-7.633 0-12 7-12 7s4.367 7 12 7 12-7 12-7-4.367-7-12-7zm0 12c-2.761
+           0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5zm0-8c-1.657
+           0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Confirm password with toggle -->
+    <label data-translate="confirmPassword">पासवर्ड की पुष्टि करें *</label>
+    <div class="password-wrapper">
+      <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm password" required />
+      <button type="button" class="toggle-password" aria-label="Show password">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 5c-7.633 0-12 7-12 7s4.367 7 12 7 12-7 12-7-4.367-7-12-7zm0 12c-2.761
+           0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5zm0-8c-1.657
+           0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="captcha-row">
+      <div id="captchaBox" class="captcha-box">ABCDE</div>
+      <button type="button" id="refreshCaptcha" class="small" title="Refresh CAPTCHA">↻</button>
+    </div>
+
+    <label data-translate="enterCaptcha">कैप्चा दर्ज करें *</label>
+    <input id="captchaInput" name="captchaInput" type="text" required />
+
+    <label data-translate="panchayat">पंचायत</label>
+    <input id="panchayat" name="panchayat" type="text" value="Patarhi" readonly />
+
+    <label data-translate="village">गाँव</label>
+    <select id="village" name="village">
+      <option value="" data-translate="selectVillage">गाँव चुनें</option>
+      <option value="Patarhi">Patarhi</option>
+      <option value="Kirhindi">Kirhindi</option>
+      <option value="Teladi">Teladi</option>
+    </select>
+
+    <div class="form-row">
+      <button id="registerBtn" type="submit" class="btn" data-translate="register">रजिस्टर करें</button>
+      <a href="/login" class="btn outline" data-translate="login">लॉगिन</a>
+    </div>
+  </form>
+</section>
+
+<script src="/public/js/register.js"></script>
+<%- include('partials/footer') %>

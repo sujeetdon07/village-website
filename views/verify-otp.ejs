@@ -1,0 +1,42 @@
+<%- include("partials/header") %>
+
+  <div class="forgot-wrapper">
+    <div class="forgot-card">
+      <h2>Verify OTP</h2>
+
+      <% if (error) { %>
+        <div style="color: red; margin-bottom: 10px">
+          <%= error %>
+        </div>
+        <% } %>
+          <% if (typeof message !=='undefined' && message) { %>
+            <div style="color: green; margin-bottom: 10px">
+              <%= message %>
+            </div>
+            <% } %>
+              <% if (typeof otp !=='undefined' && otp) { %>
+                <p style="color: green; font-weight: bold">
+                  Your OTP (for testing) is: <%= otp %>
+                </p>
+                <% } %>
+
+                  <form class="form" method="POST" action="/verify-otp">
+                    <label for="otp">Enter OTP</label>
+                    <input type="text" id="otp" name="otp" placeholder="Enter OTP sent to your mobile" required />
+                    <button type="submit" class="btn">Verify</button>
+                  </form>
+
+                  <!-- Resend OTP form -->
+                  <button id="resendBtn" class="btn" style="background: #444; margin-top: 10px" disabled>
+                    Resend OTP (45s)
+                  </button>
+
+                  <p id="resendMsg" style="margin-top: 10px; color: green; font-weight: bold"></p>
+
+                  <p class="back-link"><a href="/forgot-password">Back</a></p>
+    </div>
+  </div>
+
+  <script src="/js/verify-otp.js"></script>
+
+  <%- include("partials/footer") %>

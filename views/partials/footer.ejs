@@ -1,0 +1,16 @@
+</main>
+
+<footer class="site-footer">
+  <div>📍 Patarhi Village • <%= (new Date()).getFullYear() %> • My Village Patarhi</div>
+
+  <!-- feedback form -->
+  <form action="/feedback" method="POST" class="feedback-form">
+    <input name="name" type="text" placeholder="Your name" required>
+    <input name="email" type="email" placeholder="Your email" required>
+    <textarea name="message" rows="2" placeholder="Feedback..." required></textarea>
+    <button type="submit" class="btn">Send</button>
+  </form>
+</footer>
+
+</body>
+</html>

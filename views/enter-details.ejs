@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+  <section class="card">
+    <div class="form-card">
+      <h2 data-translate="enterDetailsTitle">अपना विवरण दर्ज करें</h2>
+
+      <form action="/enter-details" method="POST" class="form">
+        <label data-translate="fullName">पूरा नाम</label>
+        <input type="text" name="name" value="<%= resident.name %>" readonly>
+
+        <label data-translate="fatherHusbandName">पिता/पति का नाम *</label>
+        <input type="text" name="fatherName" value="<%= resident.fatherName %>" required>
+
+        <label data-translate="fatherHusbandMobile">पिता/पति का मोबाइल *</label>
+        <input type="text" name="fatherMobile" id="fatherMobile" maxlength="10" pattern="\d{10}"
+          title="Enter a 10-digit mobile number" oninput="this.value=this.value.replace(/\\D/g,'').slice(0,10)"
+          required />
+
+
+        <label data-translate="ward">वार्ड *</label>
+        <select name="ward" required>
+          <option value="" data-translate="selectWard">वार्ड चुनें</option>
+          <option value="1" <%=resident.ward==='1' ?'selected':'' %>>Ward 1</option>
+          <option value="2" <%=resident.ward==='2' ?'selected':'' %>>Ward 2</option>
+          <option value="3" <%=resident.ward==='3' ?'selected':'' %>>Ward 3</option>
+        </select>
+
+        <label data-translate="village">गाँव</label>
+        <select name="village">
+          <option value="Patarhi" <%=resident.village==='Patarhi' ?'selected':'' %>>Patarhi</option>
+          <option value="Village A" <%=resident.village==='Village A' ?'selected':'' %>>Village A</option>
+          <option value="Village B" <%=resident.village==='Village B' ?'selected':'' %>>Village B</option>
+        </select>
+
+        <div class="form-row">
+          <button type="submit" class="btn" data-translate="saveDetails">विवरण सहेजें</button>
+          <a href="/profile" class="btn outline" data-translate="cancel">रद्द करें</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <%- include('partials/footer') %>
