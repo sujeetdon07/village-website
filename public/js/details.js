@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
     out.innerHTML = '';
 
     if (!q) {
-      out.innerHTML = '<p style="text-align:center; color: red;">Please type a name</p>';
+      out.innerHTML = `<p style="text-align:center; color: red;">${translations[currentLang].pleaseTypeAName}</p>`;
       return;
     }
 
     // Disable button & show loading
     searchBtn.disabled = true;
     const originalText = searchBtn.innerHTML;
-    searchBtn.innerHTML = `<span class="spinner"></span> Searching...`;
+    searchBtn.innerHTML = `<span class="spinner"></span> ${translations[currentLang].searching}`;
 
     try {
       const res = await fetch('/api/search?q=' + encodeURIComponent(q));
@@ -35,22 +35,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                   <strong style="font-size: 18px;">${u.name}</strong>
                   <span style="background: #28a745; color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold;">
-                    ${u.category}
+                    ${translations[currentLang].contact} | ${u.category}
                   </span>
                 </div>
-                <div style="font-size: 16px;">📞 Mobile: <strong>${u.mobile}</strong></div>
+                <div style="font-size: 16px;">📞 ${translations[currentLang].mobile}: <strong>${u.mobile}</strong></div>
               </div>
             `;
           } else {
             // Resident Card
             return `
               <div class="card small" style="margin-bottom: 15px;">
-                <strong style="font-size: 18px;">${u.name}</strong>
-                <div>Father/Husband: ${u.fatherName}</div>
-                <div>Mobile: ${u.mobile}</div>
-                <div>Father/Husband Mobile: ${u.fatherMobile}</div>
-                <div>Ward: ${u.ward}</div>
-                <div>Village: ${u.village}</div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                   <strong style="font-size: 18px;">${u.name}</strong>
+                   <span style="background: var(--primary); color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold;">
+                    ${translations[currentLang].resident}
+                  </span>
+                </div>
+                <div>${translations[currentLang].fatherHusbandName}: ${u.fatherName}</div>
+                <div>${translations[currentLang].mobile}: ${u.mobile}</div>
+                <div>${translations[currentLang].fatherHusbandMobile}: ${u.fatherMobile}</div>
+                <div>${translations[currentLang].ward}: ${u.ward}</div>
+                <div>${translations[currentLang].village}: ${u.village}</div>
               </div>
             `;
           }
@@ -60,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      out.innerHTML = '<p style="text-align:center; color: red;">No details found</p>';
+      out.innerHTML = `<p style="text-align:center; color: red;">${translations[currentLang].noDetailsFound}</p>`;
     } catch (error) {
       console.error('Search error:', error);
       out.innerHTML = `<p style="text-align:center; color: red;">Server error</p>`;

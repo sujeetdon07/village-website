@@ -112,7 +112,12 @@ const translations = {
     agree: "मैं सहमत हूँ",
     close: "बंद करें",
     save: "सहेजें",
-    update: "अपडेट करें"
+    update: "अपडेट करें",
+    searching: "खोज रहे हैं...",
+    pleaseTypeAName: "कृपया नाम टाइप करें",
+    noDetailsFound: "कोई विवरण नहीं मिला",
+    resident: "निवासी",
+    contact: "संपर्क"
   },
   
   en: {
@@ -227,7 +232,12 @@ const translations = {
     agree: "I Agree",
     close: "Close",
     save: "Save",
-    update: "Update"
+    update: "Update",
+    searching: "Searching...",
+    pleaseTypeAName: "Please type a name",
+    noDetailsFound: "No details found",
+    resident: "Resident",
+    contact: "Contact"
   }
 };
 
