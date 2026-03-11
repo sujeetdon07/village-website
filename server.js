@@ -10,6 +10,7 @@ const helmet = require("helmet");
 const compression = require("compression");
 const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
+const axios = require("axios");
 
 // ---------------- CREATE APP ----------------
 const app = express();
@@ -171,5 +172,25 @@ app.use((err, req, res, next) => {
 
 // ---------------- START SERVER ----------------
 const PORT = parseInt(process.env.PORT, 10) || 3000; // fallback for local dev
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  
+  // ---------------- RENDER KEEP-ALIVE (Self-Ping) ----------------
+  // Pings the server every 10 minutes in production to prevent sleeping on Render free tier
+  if (process.env.NODE_ENV === 'production' && process.env.RENDER_EXTERNAL_URL) {
+    const url = `${process.env.RENDER_EXTERNAL_URL}/ping`;
+    console.log(`📡 Starting self-ping keep-alive for: ${url}`);
+    
+    setInterval(async () => {
+      try {
+        const response = await axios.get(url);
+        console.log(`✅ Self-ping successful: ${response.data} at ${new Date().toISOString()}`);
+      } catch (error) {
+        console.error(`❌ Self-ping failed: ${error.message}`);
+      }
+    }, 10 * 60 * 1000); // 10 minutes
+  } else if (process.env.NODE_ENV === 'production') {
+    console.warn('⚠️ RENDER_EXTERNAL_URL not set. Self-ping keep-alive is disabled.');
+  }
+});
 
