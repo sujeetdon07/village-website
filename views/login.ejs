@@ -1,45 +1,61 @@
 <%- include('partials/header') %>
 
-<section class="card">
-  <h2 style="text-align: center">Login</h2>
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <img src="/uploads/logo.png" alt="logo" class="auth-logo">
+      <h2 data-translate="loginTitle">Login</h2>
+      <p class="auth-subtitle">Welcome back! Please enter your details.</p>
+    </div>
 
-  <!-- Alert container -->
-  <div id="loginAlert" class="alert">
-    <% if (success && success.length > 0) { %>
-      <div class="alert-message success">
-        <%= success[0] %>
-      </div>
-    <% } %>
+    <!-- Alert container -->
+    <div id="loginAlert" class="alert">
+      <% if (success && success.length > 0) { %>
+        <div class="alert-message success">
+          <%= success[0] %>
+        </div>
+      <% } %>
 
-    <% if (error && error.length > 0) { %>
-      <div class="alert-message error">
-        <%= error[0] %>
+      <% if (error && error.length > 0) { %>
+        <div class="alert-message error">
+          <%= error[0] %>
+        </div>
+      <% } %>
+    </div>
+
+    <form id="loginForm" class="auth-form">
+      <div class="input-group">
+        <label for="loginMobile">Mobile or Email</label>
+        <div class="input-wrapper">
+          <span class="input-icon">👤</span>
+          <input id="loginMobile" name="mobile" type="text" placeholder="Enter mobile or email" required />
+        </div>
       </div>
-    <% } %>
+
+      <div class="input-group">
+        <label for="loginPassword">Password</label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input id="loginPassword" name="password" type="password" placeholder="••••••••" required />
+          <button type="button" class="toggle-password" title="Toggle Password">👁️</button>
+        </div>
+      </div>
+      
+      <div class="auth-actions">
+        <label class="remember-me">
+          <input type="checkbox"> Remember me
+        </label>
+        <a href="/forgot-password" class="forgot-link">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Login</button>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="/register" class="auth-link">Register Now</a>
+      </div>
+    </form>
   </div>
-
-  <!-- Removed method and action -->
-  <form id="loginForm" class="form">
-    <label>Mobile or Email</label>
-    <input id="loginMobile" name="mobile" type="text" placeholder="Enter mobile or email" required />
-
-    <label>Password</label>
-    <div class="password-wrapper">
-      <input id="loginPassword" name="password" type="password" required />
-      <button type="button" class="toggle-password">👁️</button>
-    </div>
-    
-
-    <div class="form-row">
-      <button type="submit" class="btn">Login</button>
-      <a href="/register" class="btn outline">Register</a>
-    </div>
-
-    <p style="text-align: center; margin-top: 12px">
-      <a href="/forgot-password" class="btn outline">Forgot Password?</a>
-    </p>
-  </form>
-</section>
+</div>
 
 <script src="/js/login.js"></script>
 
