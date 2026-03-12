@@ -898,14 +898,14 @@ section, .content {
     gap: var(--space-md);
     transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 80px var(--space-md) var(--space-md);
-    z-index: 5000; /* Extremely high to stay above notice bar and everything else */
+    z-index: 9999 !important; /* Even higher to cover everything */
   }
 
   /* Hamburger should stay above nav menu when open */
   .hamburger {
-    z-index: 5001;
+    z-index: 10000 !important;
     display: flex;
-    cursor: pointer; /* Ensure it's clickable */
+    cursor: pointer;
   }
 
   .right.active {
@@ -1152,10 +1152,11 @@ section, .content {
   overflow: hidden !important;
   margin-bottom: var(--space-md) !important;
   border-radius: 12px !important; /* Circular corners */
+  box-sizing: border-box !important;
 }
 
 .announcement-icon {
-  color: #ef4444 !important; /* Visual red color */
+  color: #ef4444 !important; /* Red color */
   margin-right: 12px;
   font-size: 1.25rem;
   flex-shrink: 0;

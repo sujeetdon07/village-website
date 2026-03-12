@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Mobile input restriction
   if (mobileInput) {
     mobileInput.addEventListener("input", () => {
-      mobileInput.value = mobileInput.value.replace(/\D/g, "").slice(0, 10);
+      // Logic removed to allow email entry
     });
   }
 
@@ -59,9 +59,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const mobile = mobileInput.value.trim();
       const password = passwordInput.value;
 
-      // Client-side validation
-      if (!/^\d{10}$/.test(mobile)) {
-        show("Mobile must be 10 digits");
+      // Client-side validation: allow 10 digits OR an email format
+      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mobile);
+      const isMobile = /^\d{10}$/.test(mobile);
+
+      if (!isEmail && !isMobile) {
+        show("Enter a valid 10-digit mobile or email");
         setButtonState(false);
         isSubmitting = false;
         return;

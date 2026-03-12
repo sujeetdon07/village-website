@@ -83,7 +83,8 @@ router.post(
       id: resident._id,
       name: resident.name,
       mobile: resident.mobile,
-      isAdmin: resident.isAdmin || false,
+      email: resident.email,
+      isAdmin: resident.isAdmin === true,
     };
 
     // Save session before sending response
@@ -111,7 +112,13 @@ router.post(
 
     const { mobile, password } = req.body;
     try {
-      const resident = await Resident.findOne({ mobile });
+      // Find user by mobile or email
+      const resident = await Resident.findOne({ 
+        $or: [
+          { mobile: mobile },
+          { email: mobile.toLowerCase() }
+        ]
+      });
       if (!resident) {
         return res.status(401).json({ success: false, error: "Invalid mobile or password" });
       }
@@ -125,7 +132,8 @@ router.post(
         id: resident._id,
         name: resident.name,
         mobile: resident.mobile,
-        isAdmin: resident.isAdmin || false,
+        email: resident.email,
+        isAdmin: resident.isAdmin === true,
       };
 
       // Save session before sending response
