@@ -8,8 +8,8 @@ const translations = {
     profile: "प्रोफ़ाइल",
     admin: "एडमिन",
     logout: "लॉगआउट",
-    register: "रजिस्टर करें",
-    login: "लॉगिन",
+    logoutConfirmTitle: "लॉगआउट की पुष्टि करें",
+    logoutConfirmMsg: "क्या आप वाकई लॉगआउट करना चाहते हैं?",
     
     // Home Page
     welcome: "हमारे गाँव पताढ़ी में आपका स्वागत है",
@@ -128,8 +128,8 @@ const translations = {
     profile: "Profile",
     admin: "Admin",
     logout: "Logout",
-    register: "Register",
-    login: "Login",
+    logoutConfirmTitle: "Confirm Logout",
+    logoutConfirmMsg: "Are you sure you want to logout?",
     
     // Home Page
     welcome: "Welcome to Our Village Patarhi",

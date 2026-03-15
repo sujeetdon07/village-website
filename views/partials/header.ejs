@@ -47,13 +47,28 @@
     <a href="/gallery" class="nav-link" data-page="gallery" data-translate="gallery">गैलरी</a>
     <% if (user) { %>
       <a href="/profile" class="nav-link" data-page="profile" data-translate="profile">प्रोफ़ाइल</a>
-      <% if (user.isAdmin) { %><a href="/admin" class="nav-link" data-page="admin" data-translate="admin">एडमिन</a><% } %>
-      <a href="/logout" class="nav-link" data-page="logout" data-translate="logout">लॉगआउट</a>
+      <% if (user.isAdmin) { %>
+        <a href="/admin" class="nav-link" data-page="admin" data-translate="admin">एडमिन</a>
+      <% } %>
+      <a href="/logout" class="nav-link nav-logout" id="logout-link" data-page="logout" data-translate="logout">लॉगआउट</a>
     <% } else { %>
       <a href="/register" class="nav-link" data-page="register" data-translate="register">रजिस्टर करें</a>
       <a href="/login" class="nav-link" data-page="login" data-translate="login">लॉगइन</a>
     <% } %>
+  </nav>
 </header>
+
+<!-- Logout Confirmation Modal -->
+<div id="logoutModal" class="confirm-modal-overlay">
+  <div class="confirm-modal">
+    <h3 data-translate="logoutConfirmTitle">लॉगआउट की पुष्टि करें</h3>
+    <p data-translate="logoutConfirmMsg">क्या आप वाकई लॉगआउट करना चाहते हैं?</p>
+    <div class="modal-buttons">
+      <button id="cancelLogout" class="btn outline" data-translate="cancel">रद्द करें</button>
+      <a href="/logout" class="btn btn-danger" data-translate="logout">लॉगआउट</a>
+    </div>
+  </div>
+</div>
 <main class="main">
 <!-- 🔔 Running Notice Bar (Moved inside main to ensure it scrolls with content) -->
 <div class="notice-bar">

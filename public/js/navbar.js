@@ -25,4 +25,33 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Logout Confirmation Modal Logic
+  const logoutLink = document.getElementById('logout-link');
+  const logoutModal = document.getElementById('logoutModal');
+  const cancelLogout = document.getElementById('cancelLogout');
+
+  if (logoutLink && logoutModal && cancelLogout) {
+    logoutLink.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevent immediate logout
+      logoutModal.style.display = 'flex';
+      
+      // Close mobile menu if open
+      if (hamburgerBtn && navMenu) {
+        hamburgerBtn.classList.remove('active');
+        navMenu.classList.remove('active');
+      }
+    });
+
+    cancelLogout.addEventListener('click', () => {
+      logoutModal.style.display = 'none';
+    });
+
+    // Close modal if clicking overlay
+    logoutModal.addEventListener('click', (e) => {
+      if (e.target === logoutModal) {
+        logoutModal.style.display = 'none';
+      }
+    });
+  }
 });
