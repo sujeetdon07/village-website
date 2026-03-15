@@ -46,16 +46,16 @@ document.addEventListener('DOMContentLoaded', () => {
             return `
               <div class="card small" style="margin-bottom: 15px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                   <strong style="font-size: 18px;">${u.name}</strong>
+                   <strong style="font-size: 18px;">${transliterateToHindi(u.name)}</strong>
                    <span style="background: var(--primary); color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold;">
                     ${translations[currentLang].resident}
                   </span>
                 </div>
-                <div>${translations[currentLang].fatherHusbandName}: ${u.fatherName}</div>
+                <div>${translations[currentLang].fatherHusbandName}: ${transliterateToHindi(u.fatherName)}</div>
                 <div>${translations[currentLang].mobile}: ${u.mobile}</div>
                 <div>${translations[currentLang].fatherHusbandMobile}: ${u.fatherMobile}</div>
                 <div>${translations[currentLang].ward}: ${u.ward}</div>
-                <div>${translations[currentLang].village}: ${u.village}</div>
+                <div>${translations[currentLang].village}: ${transliterateToHindi(u.village)}</div>
               </div>
             `;
           }

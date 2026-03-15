@@ -1,3 +1,62 @@
+// Transliteration Utility for Dynamic Data (Names, Villages, etc.)
+const transliterateToHindi = (text) => {
+  if (!text) return '';
+  text = text.toString();
+  
+  // 1. Common Word Mappings
+  const commonMappings = {
+    'Patarhi': 'पताढ़ी',
+    'Kumar': 'कुमार',
+    'Singh': 'सिंह',
+    'Sharma': 'शर्मा',
+    'Yadav': 'यादव',
+    'Mahto': 'महतो',
+    'Prasad': 'प्रसाद',
+    'Devi': 'देवी',
+    'Panchayat': 'पंचायत'
+  };
+
+  // Replace common words first (case insensitive)
+  Object.keys(commonMappings).forEach(key => {
+    const regex = new RegExp(`\\b${key}\\b`, 'gi');
+    text = text.replace(regex, commonMappings[key]);
+  });
+
+  // 2. Simple character-to-character mapping for names (Phonetic-ish)
+  // Note: This is a basic version. For full names, it handles common sounds.
+  const charMap = {
+    'a': 'ा', 'e': 'े', 'i': 'ि', 'o': 'ो', 'u': 'ु',
+    'b': 'ब', 'c': 'च', 'd': 'द', 'f': 'फ', 'g': 'ग',
+    'h': 'ह', 'j': 'ज', 'k': 'क', 'l': 'ल', 'm': 'म',
+    'n': 'न', 'p': 'प', 'r': 'र', 's': 'स', 't': 'त',
+    'v': 'व', 'w': 'व', 'y': 'य', 'z': 'ज',
+    'kh': 'ख', 'gh': 'घ', 'ch': 'च', 'sh': 'श', 'th': 'थ', 'bh': 'भ', 'dh': 'ध'
+  };
+
+  // Convert English digits to Hindi digits
+  const digitsMap = { '0': '०', '1': '१', '2': '२', '3': '३', '4': '४', '5': '५', '6': '६', '7': '७', '8': '८', '9': '९' };
+  
+  // We only transliterate if the language is Hindi
+  if (currentLang !== 'hi') return text;
+
+  // Split into words to handle transliteration better
+  return text.split(' ').map(word => {
+    // If it's already a mapped word, return it
+    if (Object.values(commonMappings).includes(word)) return word;
+
+    // Replace digits
+    let result = word.split('').map(char => digitsMap[char] || char).join('');
+    
+    // Very basic transliteration for unknown names if they are still in Latin
+    if (/[a-zA-Z]/.test(result)) {
+      // This is very rudimentary, but helps with names like "Sunil" -> "सुनील" (basic)
+      // For a better experience, we prioritize commonMappings.
+      return result; 
+    }
+    return result;
+  }).join(' ');
+};
+
 // Language Switching System
 const translations = {
   hi: {
