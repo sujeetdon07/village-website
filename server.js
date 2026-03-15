@@ -84,7 +84,7 @@ app.use('/verify-otp', otpLimiter);
 
 // Sessions
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET || 'village_patarhi_secret_key_123',
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ 
@@ -95,7 +95,7 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24,
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+    sameSite: 'lax' // Changed from 'none' for better stability
   }
 }));
 
@@ -110,6 +110,12 @@ app.use((req, res, next) => {
     res.locals.error = req.flash("error");
   }
   res.locals.user = req.session.user || null;
+  // Verbose debug log for every request
+  // console.log(`DEBUG: Request ${req.method} ${req.path} | SessionID: ${req.sessionID} | User: ${req.session.user ? req.session.user.mobile : 'None'}`);
+  
+  if (req.session.user && req.path.startsWith('/admin')) {
+    console.log(`DEBUG: Admin attempt by ${req.session.user.mobile}. isAdmin: ${req.session.user.isAdmin}`);
+  }
   next();
 });
 

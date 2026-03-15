@@ -119,6 +119,7 @@ router.post(
           { email: mobile.toLowerCase() }
         ]
       });
+      console.log(`DEBUG: Login attempt for ${mobile}. User found: ${!!resident}. isAdmin in DB: ${resident ? resident.isAdmin : 'N/A'}`);
       if (!resident) {
         return res.status(401).json({ success: false, error: "Invalid mobile or password" });
       }
