@@ -133,7 +133,7 @@ router.post(
         name: resident.name,
         mobile: resident.mobile,
         email: resident.email,
-        isAdmin: resident.isAdmin === true,
+        isAdmin: !!resident.isAdmin, // Force boolean
       };
 
       // Save session before sending response

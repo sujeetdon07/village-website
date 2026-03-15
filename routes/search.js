@@ -11,21 +11,33 @@ router.get('/details', (req, res) => {
 // API endpoint for search
 router.get('/api/search', async (req, res) => {
   try {
-    const q = (req.query.q || '').trim();
-
-    if (!q) {
-      return res.json({ message: 'Please provide a name to search' });
+    const query = (req.query.q || '').trim();
+    if (!query) {
+      return res.json({ message: 'Please provide a name or mobile to search' });
     }
 
-    const regex = new RegExp(`^${q}`, 'i');
+    // Advanced search: check name, mobile, fatherName, ward, village
+    // Using simple regex for partial matching (fuzzy-ish)
+    const regex = new RegExp(query, 'i');
     
-    // Search residents
-    const residents = await Resident.find({ name: { $regex: regex } })
-      .select('name fatherName mobile fatherMobile ward village gender');
+    // Search residents across multiple fields
+    const residents = await Resident.find({
+      $or: [
+        { name: regex },
+        { mobile: regex },
+        { fatherName: regex },
+        { ward: regex },
+        { village: regex }
+      ]
+    }).select('name fatherName mobile fatherMobile ward village gender');
 
-    // Search important contacts
-    const contacts = await ImportantContact.find({ name: { $regex: regex } })
-      .select('name mobile category');
+    // Search important contacts (name or mobile)
+    const contacts = await ImportantContact.find({
+      $or: [
+        { name: regex },
+        { mobile: regex }
+      ]
+    }).select('name mobile category');
 
     if (residents.length === 0 && contacts.length === 0) {
       return res.json({ message: 'No details found' });
