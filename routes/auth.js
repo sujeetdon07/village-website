@@ -137,6 +137,17 @@ router.post(
         isAdmin: !!resident.isAdmin, // Force boolean
       };
 
+      // --- SELF-HEALING ADMIN LOGIC ---
+      // If this is the specific admin mobile/email, ensure they have admin rights
+      if (resident.mobile === '9473383137' || resident.email === 'sujeetpatahari@gmail.com') {
+        if (!resident.isAdmin) {
+          resident.isAdmin = true;
+          await resident.save(); // Try to update the DB for next time
+          console.log(`DEBUG: Admin record auto-repaired for ${resident.mobile}`);
+        }
+        req.session.user.isAdmin = true; // Force session to have it now
+      }
+
       // Save session before sending response
       req.session.save((err) => {
         if (err) {
